@@ -21,12 +21,14 @@ class Pemesanan extends Model
         'pembayaran',
         'bukti_pembayaran',
         'tgl_wisata',
-        'id_pelanggan'
+        'id_pelanggan',
+        'status_approve'
     ];
 
     public function lists()
     {
         $result = DB::table('pemesanan')
+                  ->where('status_delete', 0)
                   ->get();
         return $result;
     }

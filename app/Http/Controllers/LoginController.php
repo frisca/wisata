@@ -19,11 +19,11 @@ class LoginController extends Controller
 	public function index()
 	{
 
-		return view('index');
+		return view('login_admin');
 
 	}
 
-	public function login(LoginRequest $request)
+	public function loginAdmin(LoginRequest $request)
     {
         
         $credentials = $request->only('email', 'password');
@@ -47,7 +47,7 @@ class LoginController extends Controller
             }
             else{
 
-                return redirect('home'); 
+                return redirect('/admin/home'); 
 
             }
 
@@ -63,7 +63,7 @@ class LoginController extends Controller
         
         Auth::logout();
 
-        return redirect('/');
+        return redirect('/admin/login');
 
     }
 

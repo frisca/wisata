@@ -26,7 +26,7 @@ class PemesananDetail extends Model
     public function lists($nomor_pemesanan)
     {
         $result = DB::table('pemesanan_detail')
-                  ->where(array('nomor_pemesanan' => $nomor_pemesanan))
+                  ->where(array('nomor_pemesanan' => $nomor_pemesanan, 'status_delete' => 0))
                   ->get();
         return $result;
     }

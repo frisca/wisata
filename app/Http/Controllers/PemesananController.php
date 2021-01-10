@@ -30,6 +30,6 @@ class PemesananController extends Controller
 		$pemesanan = $this->pemesanan->detail($nomor);
 		$pemesanandetails = $this->pemesanandetail->lists($nomor);
 		$tiketpemesanans = $this->tiketpemesanan->lists($nomor);
-		return view('pemesanan/index', ['pemesanandetails' => $pemesanandetails, 'tiketpemesanans' => $tiketpemesanans, 'data' => $pemesanan]);
+		return view('pemesanan/detail', ['pemesanandetail' => $pemesanandetails, 'tiketpemesanan' => $tiketpemesanans, 'data' => $pemesanan]);
 	}
 }

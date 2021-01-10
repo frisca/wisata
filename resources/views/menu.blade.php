@@ -1,8 +1,8 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">       
-      <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Wisata admin logo" src="{{ asset('theme-assets/images/logo/logo.jpeg') }}"/>
-          <h3 class="brand-text">Wisata</h3></a></li>
+      <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Alfa Tour & Travel admin logo" src="{{ asset('theme-assets/images/logo/logo.jpeg') }}"/>
+          <h3 class="brand-text">Alfa Tour & Travel</h3></a></li>
       <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
     </ul>
   </div>
@@ -26,7 +26,9 @@
       </li>
       <li class="nav-item"><a href="{{ URL('pemesanan') }}"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Transaksi</span></a>
       </li>
-      <li class="nav-item"><a href="{{ URL('') }}"><i class="ft-refresh-ccw"></i><span class="menu-title" data-i18n="">Reschedule</span></a>
+      <li class="nav-item"><a href="{{ URL('reschedule') }}"><i class="ft-refresh-ccw"></i><span class="menu-title" data-i18n="">Reschedule</span></a>
+      </li>
+      <li class="nav-item"><a href="{{ URL('refund') }}"><i class="ft-align-justify"></i><span class="menu-title" data-i18n="">Refund</span></a>
       </li>
     </ul>
   </div>

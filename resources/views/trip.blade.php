@@ -208,53 +208,16 @@
     </div>
   </nav>
 
-  <img src="images/slide.jpeg" style="width: 1138px;height: 355px;">
-
-  <p>
-    <b><h2 style="color: #0000FF;font-family: serif;">BOOK NOW</h2></b>
-  </p>
-
-  <div class="row">
-    <div class="col-md-5">
-      <label for="cars">Pilih Kategori</label>
-      <select name="cars" id="cars" class="form-control">
-        <option value="volvo">Semua Kategori</option>
-      </select>
-    </div>
-    <div class="col-md-5">
-      <label for="cars">Pilih Destinasi</label>
-      <select name="cars" id="cars" class="form-control">
-        <option value="">Semua Destinasi</option>
-        @foreach($lokasi as $v_lokasi)
-        <option value="{{ $v_lokasi->id_lokasi }}">{{ $v_lokasi->lokasi }}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="col-md-2">
-      <label></label>
-      <button type="submit" class="btn btn-default" style="margin-top: 25px;background-color: #333;color: #fff;"><i class="glyphicon glyphicon-search"></i> Cari Tour</button>
-    </div>
-  </div>
-
-  <!-- <div class="container"> -->
-  <div style="margin-top: 50px;">
-    <h2 style="text-align: center;color: #0000FF;font-family: serif;"><b>Alfa Tour Spesialis Paket Wisata Indonesia dan Luar Negeri</b></h2>
-    <p class="lead text-muted" style="text-align: center;color: #000;"><b>Alfa Tour merupakan salah satu Travel Agent yang memiliki standar pelayanan yang tinggi dengan harga yang terjangkau. Temukan paket liburan impian kamu disini dengan pelayanan yang istimewa dan harga yang ramah bersama Alfa Tour.</b></p>
-  </div>
-
-  <div style="margin-top: 50px;">
-    <h2 style="text-align: center;color: #0000FF;font-family: serif;"><b>Paket Wisat Alfa Tour</b></h2>
-    <p class="lead text-muted" style="text-align: center;color: #000;"><b>Hi Travellers, kami sudah menyiapkan beberapa paket wisata untuk kamu liburan bersama Alfa Tour loh.</b></p>
-  </div>
-
-  <div class="row" style="margin-top: 55px;">
-    @foreach($wisata as $v_wisata)
+  <div class="row" style="margin-top: 25px; margin-bottom: 15px;">
+    @foreach($data as $v_wisata)
     <div class="col-xs-6 col-md-4">
       <div class="thumbnail">
         <img src="{{ asset('images/' . $v_wisata->image) }}" alt="{{ $v_wisata->nama_wisata }}, {{ $v_wisata->lokasi }}" style="width: 345px; height: 215px;">
         <div class="caption">
           <p style="text-align: center;font-size: 20px;color: #0000FF;font-family: serif;">
-            <b>{{ $v_wisata->nama_wisata }}</b>
+            <a href="{{ URL('list/wisata/' . $v_wisata->id_wisata) }}"> 
+              <b>{{ $v_wisata->nama_wisata }}</b>
+            </a>
           </p>
           <p style="text-align: left;color: #000;">
             <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i> {{ $v_wisata->lokasi }}

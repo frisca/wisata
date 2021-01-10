@@ -33,6 +33,9 @@
         $('#example').dataTable( {
             "autoWidth": false
         });
+        $('#example1').dataTable( {
+            "autoWidth": false
+        });
         var konten = document.getElementById("konten");
         CKEDITOR.replace(konten,{
           language:'en-gb'

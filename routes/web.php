@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', 'LoginController@index');
+Route::get('/', 'HomeUserController@index');
 
-Route::post('/login', 'LoginController@login');
+Route::get('/admin/login', 'LoginController@index');
 
-Route::get('/home', 'HomeController@index');
+Route::post('/login', 'LoginController@loginAdmin');
+
+Route::get('/admin/home', 'HomeController@index');
 
 Route::get('logout', 'LoginController@logout');
 
@@ -87,4 +89,16 @@ Route::get('/itenerary/detail/{id}', 'IteneraryController@detail');
 Route::get('/itenerary/delete/{id}', 'IteneraryController@delete');
 
 Route::get('/pemesanan', 'PemesananController@index');
-Route::get('/pemesanan/{nomor_pemesanan}', 'PemesananController@detail');
+Route::get('/pemesanan/detail/{nomor_pemesanan}', 'PemesananController@detail');
+
+Route::get('/reschedule', 'RescheduleController@index');
+Route::get('/reschedule/detail/{nomor_pemesanan}', 'RescheduleController@detail');
+
+Route::get('/refund', 'RefundController@index');
+Route::get('/refund/detail/{nomor_pemesanan}', 'RefundController@detail');
+
+Route::get('/profil', 'ProfilController@index');
+Route::post('/profil/change', 'ProfilController@change');
+
+Route::get('/list/trip/{id}', 'TripUserController@index');
+Route::get('/list/wisata/{id}', 'WisataUserController@index');
