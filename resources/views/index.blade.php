@@ -10,23 +10,23 @@
 		<br><br><br><br><br>
 
 		
-		{!! Form::open(['route' => 'login']) !!}
+		<form action="{{ URL('login') }}" method="post">
+			{{ csrf_field() }}
+			<div class="form-group"> 
+				<label>Email</label>
+				<input type="text" name="email" class="form-control" placeholder="Email">
+			</div>
 
-		<div class="form-group"> 
-			{!! Form::label('email', 'Email..') !!}
-			{!! Form::text('email', null, ['class' => 'form-control']) !!}
-		</div>
+			<div class="form-group"> 
+				<label>Password</label>
+				<input type="password" name="password" class="form-control" placeholder="Password">
+			</div>
 
-		<div class="form-group"> 
-			{!! Form::label('password', 'Password..') !!}
-			{!! Form::password('password', ['class' => 'form-control']) !!}
-		</div>
+			<div class="form-group"> 
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
 
-		<div class="form-group"> 
-			{!! Form::submit('Submit', ['class' => 'btn btn-primary form-control']) !!}
-		</div>
-
-		{!! Form::close() !!}	
+		</form>
 
 	</div>
 

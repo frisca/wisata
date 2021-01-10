@@ -47,7 +47,7 @@ class LoginController extends Controller
             }
             else{
 
-                return redirect()->route('home'); 
+                return redirect('home'); 
 
             }
 
@@ -63,7 +63,7 @@ class LoginController extends Controller
         
         Auth::logout();
 
-        return redirect()->route('index');
+        return redirect('/');
 
     }
 
