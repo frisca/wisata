@@ -185,30 +185,42 @@
   <nav class="navbar navbar-inverse" style="margin-top: 10px;background-color: #0000FF; border-color: #0000FF;">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL('/') }}">Alfa Tour & Travel</a>
+        <a class="navbar-brand" href="{{ URL('user/home/') }}">Alfa Tour & Travel</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ URL('/') }}">Home</a></li>
+        <li class="active"><a href="{{ URL('user/home') }}">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Trip <span class="caret"></span></a>
           <ul class="dropdown-menu">
             @foreach($trip as $v_trip)
               <li>
-                <a href="{{ URL('list/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
+                <a href="{{ URL('user/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
               </li>
             @endforeach
           </ul>
         </li>
-        <li><a href="{{ URL('about-us' )}}">About Us</a></li>
-        <li><a href="{{ URL('testimoni') }}">Testimoni</a></li>
+        <li><a href="{{ URL('user/refund' )}}">Refund</a></li>
+        <li><a href="{{ URL('user/reschedule') }}">Reschedule</a></li>
+        <li><a href="{{ URL('user/konfirmasi' )}}">Konfirmasi</a></li>
+        <li><a href="{{ URL('user/about-us' )}}">About Us</a></li>
+        <li><a href="{{ URL('user/testimoni') }}">Testimoni</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{{ URL('user/logout') }}">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
       </ul>
     </div>
   </nav>
 
-  <div class="row" style="margin-top: 25px; margin-bottom: 15px;">
+ <div class="row" style="margin-top: 25px; margin-bottom: 15px;">
     @foreach($data as $v_wisata)
     <div class="col-xs-7 col-md-4">
       <div class="thumbnail">
@@ -236,8 +248,25 @@
       <p style="text-align: left; font-size: 24px; color: #000;">
         <b>IDR {{ number_format($v_wisata->harga , 0, ".", ".") }} / pax</b>
       </p>
+      <form action="{{ URL('user/pemesanan/store/' . $v_wisata->id_wisata)}}" method="post">
+        {{ csrf_field() }}
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>Pilihan Tanggal: </b><br>
+          @foreach($tanggalwisata as $index=>$t_wisata)
+          <input type="radio" name="tgl_wisata" value="{{ $t_wisata->id_tanggal }}"> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
+          @endforeach
+        </p>
+        <button class="btn btn-primary btn-lg" type="submit">Pesan</button>
+      </form>
+    </div>
 
-      
+    <div class="col-md-12" style="margin-bottom: 10px;">
+      <a href="{{ URL('user/itenerary/' . $t_wisata->id_wisata) }}">
+        <button class="btn btn-success btn-lg" type="button">Itenerary</button> &nbsp;&nbsp;
+      </a>
+      <a href="{{ URL('user/syarat/' . $t_wisata->id_wisata) }}">
+        <button class="btn btn-success btn-lg" type="button">Syarat & Ketentuan</button>
+      </a>
     </div>
     @endforeach
   </div>

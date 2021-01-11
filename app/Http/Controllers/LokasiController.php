@@ -28,6 +28,7 @@ class LokasiController extends Controller
 
 	public function store(Request $request)
 	{
+         // var_dump($request->input('lokasi'));exit();
 		$this->validate($request, [
             'lokasi' => 'required',
             'status_lokasi' => 'required'

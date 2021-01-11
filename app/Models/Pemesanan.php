@@ -40,4 +40,37 @@ class Pemesanan extends Model
                   ->get();
         return $result;
     }
+
+    public function store($data)
+    {
+        $result = DB::table('pemesanan')
+                  ->insert($data);
+        return true;
+    }
+
+    public function pemesananByDesc()
+    {
+        $result = DB::table('pemesanan')
+                  ->where('status_delete', 0)
+                  ->orderBy('nomor_pemesanan', 'desc')
+                  ->limit(1)
+                  ->get();
+        return $result;
+    }
+
+    public function change($id, $data)
+    {
+        $result = DB::table('pemesanan')
+                  ->where('nomor_pemesanan', '=', $id)
+                  ->update($data);
+        return true;
+    }
+
+    public function pemesananById($id)
+    {
+        $result = DB::table('pemesanan')
+                  ->where('id_pelanggan', $id)
+                  ->get();
+        return $result;
+    }
 }

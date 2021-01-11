@@ -244,12 +244,16 @@
         @endforeach
       </p>
     </div>
-    @endforeach
 
     <div class="col-md-12" style="margin-bottom: 10px;">
-      <button class="btn btn-success btn-lg" type="button">Itenerary</button> &nbsp;&nbsp;
-      <button class="btn btn-success btn-lg" type="button">Syarat & Ketentuan</button>
+      <a href="{{ URL('itenerary/' . $t_wisata->id_wisata) }}">
+        <button class="btn btn-success btn-lg" type="button">Itenerary</button> &nbsp;&nbsp;
+      </a>
+      <a href="{{ URL('syarat/' . $t_wisata->id_wisata) }}">
+        <button class="btn btn-success btn-lg" type="button">Syarat & Ketentuan</button>
+      </a>
     </div>
+    @endforeach
   </div>
 
   <footer class="footer-section">

@@ -185,25 +185,37 @@
   <nav class="navbar navbar-inverse" style="margin-top: 10px;background-color: #0000FF; border-color: #0000FF;">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL('/') }}">Alfa Tour & Travel</a>
+        <a class="navbar-brand" href="{{ URL('user/home/') }}">Alfa Tour & Travel</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ URL('/') }}">Home</a></li>
+        <li class="active"><a href="{{ URL('user/home') }}">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Trip <span class="caret"></span></a>
           <ul class="dropdown-menu">
             @foreach($trip as $v_trip)
               <li>
-                <a href="{{ URL('list/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
+                <a href="{{ URL('user/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
               </li>
             @endforeach
           </ul>
         </li>
-        <li><a href="{{ URL('about-us' )}}">About Us</a></li>
-        <li><a href="{{ URL('testimoni') }}">Testimoni</a></li>
+        <li><a href="{{ URL('user/refund' )}}">Refund</a></li>
+        <li><a href="{{ URL('user/reschedule') }}">Reschedule</a></li>
+        <li><a href="{{ URL('user/konfirmasi' )}}">Konfirmasi</a></li>
+        <li><a href="{{ URL('user/about-us' )}}">About Us</a></li>
+        <li><a href="{{ URL('user/testimoni') }}">Testimoni</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{{ URL('user/logout') }}">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
       </ul>
     </div>
   </nav>
@@ -215,7 +227,7 @@
         <img src="{{ asset('images/' . $v_wisata->image) }}" alt="{{ $v_wisata->nama_wisata }}, {{ $v_wisata->lokasi }}" style="width: 345px; height: 215px;">
         <div class="caption">
           <p style="text-align: center;font-size: 20px;color: #0000FF;font-family: serif;">
-            <a href="{{ URL('list/wisata/' . $v_wisata->id_wisata) }}"> 
+            <a href="{{ URL('user/wisata/' . $v_wisata->id_wisata) }}"> 
               <b>{{ $v_wisata->nama_wisata }}</b>
             </a>
           </p>

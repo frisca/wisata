@@ -26,10 +26,19 @@ class WisataUserController extends Controller
     
 	public function index($id)
 	{
-		$data = $this->wisata->detail($id);
+		    $data = $this->wisata->detail($id);
         $trip = $this->trip->lists();
         $tanggalwisata = $this->tanggalwisata->tanggalWisata($id);
         // var_dump($tanggalwisata);exit();
 		return view('wisata', ['data' => $data, 'trip' => $trip, 'tanggalwisata' => $tanggalwisata]);
 	}
+
+  public function wisata($id)
+  {
+        $data = $this->wisata->detail($id);
+        $trip = $this->trip->lists();
+        $tanggalwisata = $this->tanggalwisata->tanggalWisata($id);
+        // var_dump($tanggalwisata);exit();
+    return view('user/wisata', ['data' => $data, 'trip' => $trip, 'tanggalwisata' => $tanggalwisata]);
+  }
 }

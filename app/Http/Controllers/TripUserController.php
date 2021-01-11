@@ -23,4 +23,11 @@ class TripUserController extends Controller
 		$data = $this->wisata->wisataByTrip($id);
 		return view('trip', ['data' => $data, 'trip' => $trip]);
 	}
+
+	public function trip($id)
+	{
+        $trip = $this->trip->lists();
+		$data = $this->wisata->wisataByTrip($id);
+		return view('user/trip', ['data' => $data, 'trip' => $trip]);
+	}
 }

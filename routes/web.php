@@ -15,14 +15,14 @@ Route::get('/', 'HomeUserController@index');
 
 Route::get('/admin/login', 'LoginController@index');
 
-Route::post('/login', 'LoginController@loginAdmin');
+Route::post('/admin/process/login', 'LoginController@loginAdmin');
 
 Route::get('/admin/home', 'HomeController@index');
 
 Route::get('logout', 'LoginController@logout');
 
 Route::get('/lokasi', 'LokasiController@index');
-Route::post('/lokasi/create', 'LokasiController@create');
+Route::post('/lokasi/store', 'LokasiController@store');
 Route::get('/lokasi/add', 'LokasiController@add');
 Route::get('/lokasi/edit/{id}', 'LokasiController@edit');
 Route::post('/lokasi/change', 'LokasiController@change');
@@ -102,3 +102,28 @@ Route::post('/profil/change', 'ProfilController@change');
 
 Route::get('/list/trip/{id}', 'TripUserController@index');
 Route::get('/list/wisata/{id}', 'WisataUserController@index');
+
+Route::get('/itenerary/{id}', 'IteneraryUserController@index');
+Route::get('/syarat/{id}', 'SyaratUserController@index');
+
+Route::get('/login', 'LoginUserController@index');
+Route::get('/daftar', 'DaftarController@index');
+Route::post('/daftar/store', 'DaftarController@store');
+
+Route::post('/user/process/login', 'LoginController@loginUser');
+
+Route::get('/user/home', 'HomeUserController@home');
+Route::get('/user/logout', 'LoginController@logoutUser');
+
+Route::get('/user/trip/{id}', 'TripUserController@trip');
+Route::get('/user/wisata/{id}', 'WisataUserController@wisata');
+Route::get('/user/itenerary/{id}', 'IteneraryUserController@itenerary');
+Route::get('/user/syarat/{id}', 'SyaratUserController@syarat');
+Route::post('/user/pemesanan/store/{id}', 'PemesananController@pesan');
+Route::get('/user/pembayaran/{nomor}/wisata/{id}', 'PemesananController@pembayaran');
+Route::post('/user/proses/pembayaran/{nomor}/wisata/{id}', 'PemesananController@prosesPembayaran');
+Route::get('/user/pembayaran/info/{nomor}/wisata/{id}', 'PemesananController@info');
+
+
+Route::get('/user/konfirmasi', 'KonfirmasiController@index');
+Route::get('/user/refund', 'RefundUserController@index');

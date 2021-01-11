@@ -53,4 +53,13 @@ class Itenerary extends Model
                   ->update($data);
         return true;
     }
+
+    public function iteneraryByWisata($id)
+    {
+        $result = DB::table('itenerary as f')
+                  ->join('paket_wisata as k', 'k.id_wisata', '=', 'f.id_wisata')
+                  ->where(array('f.id_wisata' => $id))
+                  ->get();
+        return $result;
+    }
 }

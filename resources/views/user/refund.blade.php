@@ -185,94 +185,76 @@
   <nav class="navbar navbar-inverse" style="margin-top: 10px;background-color: #0000FF; border-color: #0000FF;">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL('/') }}">Alfa Tour & Travel</a>
+        <a class="navbar-brand" href="{{ URL('user/home/') }}">Alfa Tour & Travel</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ URL('/') }}">Home</a></li>
+        <li class="active"><a href="{{ URL('user/home') }}">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Trip <span class="caret"></span></a>
           <ul class="dropdown-menu">
             @foreach($trip as $v_trip)
               <li>
-                <a href="{{ URL('list/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
+                <a href="{{ URL('user/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
               </li>
             @endforeach
           </ul>
         </li>
-        <li><a href="{{ URL('about-us' )}}">About Us</a></li>
-        <li><a href="{{ URL('testimoni') }}">Testimoni</a></li>
+        <li><a href="{{ URL('user/refund' )}}">Refund</a></li>
+        <li><a href="{{ URL('user/reschedule') }}">Reschedule</a></li>
+        <li><a href="{{ URL('user/konfirmasi' )}}">Konfirmasi</a></li>
+        <li><a href="{{ URL('user/about-us' )}}">About Us</a></li>
+        <li><a href="{{ URL('user/testimoni') }}">Testimoni</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="{{ URL('user/logout') }}">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li><a href="{{ URL('daftar') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{{ URL('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
       </ul>
     </div>
   </nav>
 
-  <img src="images/slide.jpeg" style="width: 1138px;height: 355px;">
-
-  <p>
-    <b><h2 style="color: #0000FF;font-family: serif;">BOOK NOW</h2></b>
-  </p>
-
-  <div class="row">
-    <div class="col-md-5">
-      <label for="cars">Pilih Kategori</label>
-      <select name="cars" id="cars" class="form-control">
-        <option value="volvo">Semua Kategori</option>
-      </select>
+  <div class="container">
+    <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
+      <table id="example" class="table table-striped table-bordered table-hover" style="width: 97.5%;">
+        <thead>
+          <tr>
+            <th>Nomor Pemesanan</th>
+            <th>Total Sebelum</th>
+            <th>Total Refund</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($data as $p)
+          <tr>
+            <td>{{ $p->nomor_pemesanan }}</td>
+            <td>IDR {{ number_format($p->total_sebelum, 0, '.', '.') }}</td>
+            <td>IDR {{ number_format($p->total_refund, 0, '.', '.') }}</td>
+            <td>
+              @if($p->status_approve == 1)
+                Disetujui
+              @elseif($p->status_approve == 2)
+                Ditolak
+              @else
+                Diproses
+              @endif
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Detail</button>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
-    <div class="col-md-5">
-      <label for="cars">Pilih Destinasi</label>
-      <select name="cars" id="cars" class="form-control">
-        <option value="">Semua Destinasi</option>
-        @foreach($lokasi as $v_lokasi)
-        <option value="{{ $v_lokasi->id_lokasi }}">{{ $v_lokasi->lokasi }}</option>
-        @endforeach
-      </select>
-    </div>
-    <div class="col-md-2">
-      <label></label>
-      <button type="submit" class="btn btn-default" style="margin-top: 25px;background-color: #333;color: #fff;"><i class="glyphicon glyphicon-search"></i> Cari Tour</button>
-    </div>
-  </div>
-
-  <!-- <div class="container"> -->
-  <div style="margin-top: 50px;">
-    <h2 style="text-align: center;color: #0000FF;font-family: serif;"><b>Alfa Tour Spesialis Paket Wisata Indonesia dan Luar Negeri</b></h2>
-    <p class="lead text-muted" style="text-align: center;color: #000;"><b>Alfa Tour merupakan salah satu Travel Agent yang memiliki standar pelayanan yang tinggi dengan harga yang terjangkau. Temukan paket liburan impian kamu disini dengan pelayanan yang istimewa dan harga yang ramah bersama Alfa Tour.</b></p>
-  </div>
-
-  <div style="margin-top: 50px;">
-    <h2 style="text-align: center;color: #0000FF;font-family: serif;"><b>Paket Wisat Alfa Tour</b></h2>
-    <p class="lead text-muted" style="text-align: center;color: #000;"><b>Hi Travellers, kami sudah menyiapkan beberapa paket wisata untuk kamu liburan bersama Alfa Tour loh.</b></p>
-  </div>
-
-  <div class="row" style="margin-top: 55px;">
-    @foreach($wisata as $v_wisata)
-    <div class="col-xs-6 col-md-4">
-      <div class="thumbnail">
-        <img src="{{ asset('images/' . $v_wisata->image) }}" alt="{{ $v_wisata->nama_wisata }}, {{ $v_wisata->lokasi }}" style="width: 345px; height: 215px;">
-        <div class="caption">
-          <p style="text-align: center;font-size: 20px;color: #0000FF;font-family: serif;">
-            <a href="{{ URL('list/wisata/' . $v_wisata->id_wisata) }}">
-            <b>{{ $v_wisata->nama_wisata }}</b>
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i> {{ $v_wisata->lokasi }}
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-time" aria-hidden="true"></i> {{ strtoupper($v_wisata->waktu) }}
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Max. {{ strtoupper($v_wisata->jumlah_orang) }} orang
-          </p>
-          <p style="color: #000;">
-            <b>IDR {{ number_format($v_wisata->harga , 0, ".", ".") }} / pax</b>
-          </p>
-        </div>
-      </div>
-    </div>
-    @endforeach
   </div>
 
   <footer class="footer-section">
@@ -315,21 +297,6 @@
       <div class="footer-content pt-5 pb-5">
         <div class="row">
           <div class="col-xl-4 col-lg-4 mb-50">
-            <!-- <div class="footer-widget">
-              <div class="footer-logo">
-                <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
-              </div>
-              <div class="footer-text">
-                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                  elit,Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="footer-social-icon">
-                <span>Follow us</span>
-                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

@@ -42,4 +42,12 @@ class Refund extends Model
                   ->get();
         return $result;
     }
+
+    public function refundByIdPelanggan($id)
+    {
+        $result = DB::table('refund')
+                  ->where(array('id_pelanggan' => $id))
+                  ->get();
+        return $result;
+    }
 }

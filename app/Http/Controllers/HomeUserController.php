@@ -27,4 +27,12 @@ class HomeUserController extends Controller
 		return view('index', ['trip' => $trip, 'lokasi' => $lokasi, 'wisata' => $wisata]);
 	}
 
+	public function home()
+	{
+		$trip = $this->trip->lists();
+		$lokasi = $this->lokasi->lists();
+		$wisata = $this->wisata->lists();
+		return view('user/home', ['trip' => $trip, 'lokasi' => $lokasi, 'wisata' => $wisata]);
+	}
+
 }

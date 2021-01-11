@@ -30,4 +30,11 @@ class PemesananDetail extends Model
                   ->get();
         return $result;
     }
+
+     public function store($data)
+    {
+        $result = DB::table('pemesanan_detail')
+                  ->insert($data);
+        return true;
+    }
 }

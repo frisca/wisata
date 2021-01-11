@@ -52,4 +52,13 @@ class Syarat extends Model
                   ->update($data);
         return true;
     }
+
+    public function syaratByWisata($id)
+    {
+        $result = DB::table('syarat as f')
+                  ->join('paket_wisata as k', 'k.id_wisata', '=', 'f.id_wisata')
+                  ->where(array('f.id_wisata' => $id))
+                  ->get();
+        return $result;
+    }
 }
