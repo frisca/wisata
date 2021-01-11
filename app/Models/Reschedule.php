@@ -40,4 +40,12 @@ class Reschedule extends Model
                   ->get();
         return $result;
     }
+
+    public function rescheduleByIdPelanggan($id)
+    {
+        $result = DB::table('reschedule')
+                  ->where(array('id_pelanggan' => $id))
+                  ->get();
+        return $result;
+    }
 }

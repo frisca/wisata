@@ -127,3 +127,4 @@ Route::get('/user/pembayaran/info/{nomor}/wisata/{id}', 'PemesananController@inf
 
 Route::get('/user/konfirmasi', 'KonfirmasiController@index');
 Route::get('/user/refund', 'RefundUserController@index');
+Route::get('/user/reschedule', 'RescheduleUserController@index');
