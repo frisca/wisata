@@ -221,120 +221,22 @@
   </nav>
 
   <div class="container">
-    <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
-      <table id="example" class="table table-striped table-bordered table-hover" style="width: 97.5%;">
-        <thead>
-          <tr>
-            <th>Nomor Pemesanan</th>
-            <th>Total Pembayaran</th>
-            <th>Jumlah Yang Dibayar</th>
-            <th>Status Pembayaran</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($data as $p)
-          <tr>
-            <td>{{ $p->nomor_pemesanan }}</td>
-            <td>IDR {{ number_format($p->total, 0, '.', '.') }}</td>
-            <td>IDR {{ number_format($p->jumlah_bayar, 0, '.', '.') }}</td>
-            <td>
-              @if($p->status_pemesanan == 0)
-                Belum Bayar
-              @elseif($p->status_pemesanan == 1 && $p->pembayaran == 1)
-                Sudah Bayar (DP)
-              @elseif(($p->status_pemesanan == 2 || $p->status_pemesanan == 3) && $p->pembayaran == 2)
-                Lunas
-              @endif
-            </td>
-            <td>
-              @if($p->status_approve == 1)
-                Disetujui
-              @elseif($p->status_approve == 2)
-                Ditolak
-              @else
-                Diproses
-              @endif
-            </td>
-            <td>
-              <button type="button" class="btn btn-warning">Detail</button>
-              @if($p->status_pemesanan == 0)
-                <button type="button" class="btn btn-info edit" data-toggle="modal" data-target="#myModal"
-                pemesananid="<?php echo $p->id_pemesanan;?>">Upload Bukti Bayar</button>
-              @endif 
-              @if($p->pembayaran == 2)
-                <button type="button" class="btn btn-info">Refund</button>
-                @if($p->status_pemesanan == 2)
-                <a href="{{ URL('user/reschedule/add/' . $p->nomor_pemesanan) }}">
-                  <button type="button" class="btn btn-success">Reschedule</button>
-                </a>
-                @endif
-              @elseif($p->pembayaran == 1)
-                <button type="button" class="btn btn-primary lunas" data-toggle="modal"  data-target="#myModalLunas"
-                pemesananid="<?php echo $p->id_pemesanan;?>" total="<?php echo ($p->total - $p->jumlah_bayar);?>">Bayar Lunas</button>
-              @endif 
-            </td>
-          </tr>
+    <div class="row" style="margin-top: -11px; margin-bottom: 25px;">
+      <h3>Reschedule</h3>
+      <form action="{{ URL('user/reschedule/store/' . $nomor) }}" method="post">
+        {{ csrf_field() }}
+        @if($message = Session::get('success'))
+            <div id="login-alert" class="alert alert-success col-sm-12" style="width: 97.5%;">{{ $message }}</div>
+        @endif
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>Plihan Tanggal: </b><br>
+          @foreach($tanggalwisata as $index=>$t_wisata)
+          <input type="radio" name="tgl_wisata" value="{{ $t_wisata->id_tanggal }}"> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
           @endforeach
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="{{ URL('user/konfirmasi/upload/gambar') }}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Upload Bukti Pembayaran</h4>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="id_pemesanan" value="">
-              <p>
-                <input type="file" name="image" class="form-control">
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="myModalLunas" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="{{ URL('user/konfirmasi/lunas/upload/gambar') }}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Bayar & Upload Bukti Pembayaran Lunas</h4>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="id_pemesanan" value="">
-              <p>
-                <label>Bukti Bayar</label>
-                <input type="file" name="image" class="form-control">
-              </p>
-              <p>
-                <label>Jumlah yang dibayar</label>
-                <input type="text" name="total" value="" class="form-control" disabled>
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </p>
+        
+        <button class="btn btn-primary btn-lg" type="submit">Bayar</button>
+      </form>
     </div>
   </div>
 
@@ -397,19 +299,6 @@
       </div>
   </footer>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-     $('.edit').click(function(){
-        var id = $(this).attr('pemesananid'); //get 
-         $('input[name="id_pemesanan"]').val(id);
-     });
-     $('.lunas').click(function(){
-        var id = $(this).attr('pemesananid'); //get 
-        var total = $(this).attr('total'); //get 
-        $('input[name="id_pemesanan"]').val(id);
-        $('input[name="total"]').val(total);
-     });
-    });
-</script>
+
 </body>
 </html>

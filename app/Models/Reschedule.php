@@ -48,4 +48,12 @@ class Reschedule extends Model
                   ->get();
         return $result;
     }
+
+
+    public function store($data)
+    {
+        $result = DB::table('reschedule')
+                  ->insert($data);
+        return true;
+    }
 }

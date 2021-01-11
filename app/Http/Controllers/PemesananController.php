@@ -48,7 +48,6 @@ class PemesananController extends Controller
 
 		if(strlen($nomr_order) <= 0) {
 			$nmr_order = '001';
-			var_dump($nmr_order);
 		}else{
 			foreach ($nomr_order as $key => $value) {
 				if($value->nomor_pemesanan != ""){

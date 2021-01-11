@@ -126,5 +126,9 @@ Route::get('/user/pembayaran/info/{nomor}/wisata/{id}', 'PemesananController@inf
 
 
 Route::get('/user/konfirmasi', 'KonfirmasiController@index');
+Route::post('/user/konfirmasi/upload/gambar', 'KonfirmasiController@uploadGambar');
+Route::post('/user/konfirmasi/lunas/upload/gambar', 'KonfirmasiController@uploadLunasGambar');
 Route::get('/user/refund', 'RefundUserController@index');
 Route::get('/user/reschedule', 'RescheduleUserController@index');
+Route::get('/user/reschedule/add/{nomor}', 'RescheduleUserController@add');
+Route::post('/user/reschedule/store/{nomor}', 'RescheduleUserController@store');

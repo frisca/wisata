@@ -28,7 +28,8 @@ class Pemesanan extends Model
     public function lists()
     {
         $result = DB::table('pemesanan')
-                  ->where('status_delete', 0)
+                  ->join('reschedule', 'pemesanan.nomor_pemesanan', '=', 'reschedule.nomor_pemesanan')
+                  ->where('pemesanan.status_delete', 0)
                   ->get();
         return $result;
     }
@@ -72,5 +73,13 @@ class Pemesanan extends Model
                   ->where('id_pelanggan', $id)
                   ->get();
         return $result;
+    }
+
+    public function changeById($id, $data)
+    {
+        $result = DB::table('pemesanan')
+                  ->where('id_pemesanan', '=', $id)
+                  ->update($data);
+        return true;
     }
 }
