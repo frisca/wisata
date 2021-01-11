@@ -240,11 +240,11 @@
             <td>IDR {{ number_format($p->total, 0, '.', '.') }}</td>
             <td>IDR {{ number_format($p->jumlah_bayar, 0, '.', '.') }}</td>
             <td>
-              @if($p->bukti_pembayaran == 0)
+              @if($p->status_pemesanan == 0)
                 Belum Bayar
-              @elseif($p->bukti_pembayaran == 1 && $p->pembayaran == 1)
+              @elseif($p->status_pemesanan == 1 && $p->pembayaran == 1)
                 Sudah Bayar (DP)
-              @elseif($p->bukti_pembayaran == 1 && $p->pembayaran == 2)
+              @elseif($p->bukti_pembayaran == 2 && $p->pembayaran == 2)
                 Lunas
               @endif
             </td>
