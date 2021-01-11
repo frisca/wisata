@@ -64,4 +64,11 @@ class KonfirmasiController extends Controller
     $result = $this->pemesanan->changeById($request->input('id_pemesanan'), $data);
     return redirect('user/konfirmasi')->with('success','Data upload berhasil disimpan. ');
   }
+
+  public function detail($nomor){
+    $data = $this->pemesanan->detail($nomor);
+    $pemesanandetail = $this->pemesanandetail->lists($nomor);
+    $trip = $this->trip->lists();
+    return view('user/konfrimasi_detail', ['data' => $data, 'trip' => $trip, 'pemesanandetail' => $pemesanandetail]);
+  }
 }

@@ -43,11 +43,26 @@ class Refund extends Model
         return $result;
     }
 
+    public function detailById($id)
+    {
+        $result = DB::table('refund')
+                  ->where(array('id_refund' => $id))
+                  ->get();
+        return $result;
+    }
+
     public function refundByIdPelanggan($id)
     {
         $result = DB::table('refund')
                   ->where(array('id_pelanggan' => $id))
                   ->get();
         return $result;
+    }
+
+    public function store($data)
+    {
+        $result = DB::table('refund')
+                  ->insert($data);
+        return true;
     }
 }

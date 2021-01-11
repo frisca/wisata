@@ -56,4 +56,12 @@ class Reschedule extends Model
                   ->insert($data);
         return true;
     }
+
+    public function detailById($nomor)
+    {
+        $result = DB::table('reschedule')
+                  ->where(array('id_reschedule' => $nomor))
+                  ->get();
+        return $result;
+    }
 }

@@ -248,7 +248,9 @@
               @endif
             </td>
             <td>
-              <button type="button" class="btn btn-warning">Detail</button>
+              <a href="{{ URL('user/reschedule/detail/' . $p->id_reschedule) }}">
+                <button type="button" class="btn btn-warning">Detail</button>
+              </a>
             </td>
           </tr>
           @endforeach

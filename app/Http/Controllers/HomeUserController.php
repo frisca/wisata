@@ -35,4 +35,25 @@ class HomeUserController extends Controller
 		return view('user/home', ['trip' => $trip, 'lokasi' => $lokasi, 'wisata' => $wisata]);
 	}
 
+
+	public function prosesCari(Request $request) 
+	{
+		// var_dump($request->input('id_lokasi'));exit();
+		$trip = $this->trip->lists();
+		$lokasi = $this->lokasi->lists();
+		$wisata = $this->wisata->listsWisataByLokasiAndTrip($request->input('id_trip'), $request->input('id_lokasi'));
+		// var_dump($request->input('id_trip'));exit();
+		return view('user/search', ['trip' => $trip, 'lokasi' => $lokasi, 'data' => $wisata]);
+	}
+
+	public function prosesCariUser(Request $request) 
+	{
+		// var_dump($request->input('id_lokasi'));exit();
+		$trip = $this->trip->lists();
+		$lokasi = $this->lokasi->lists();
+		$wisata = $this->wisata->listsWisataByLokasiAndTrip($request->input('id_trip'), $request->input('id_lokasi'));
+		// var_dump($request->input('id_trip'));exit();
+		return view('search', ['trip' => $trip, 'lokasi' => $lokasi, 'data' => $wisata]);
+	}
+
 }

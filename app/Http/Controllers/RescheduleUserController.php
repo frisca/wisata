@@ -89,4 +89,10 @@ class RescheduleUserController extends Controller
 		return  redirect('user/konfirmasi/')
                 ->with('success','Data pemesanan berhasil disimpan.');
 	}
+
+	public function detail($id){
+	    $data = $this->reschedule->detailById($id);
+	    $trip = $this->trip->lists();
+	    return view('user/reschedule_detail', ['data' => $data, 'trip' => $trip]);
+	  }
 }

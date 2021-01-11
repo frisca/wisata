@@ -85,4 +85,15 @@ class Wisata extends Model
                   ->get();
         return $result;
     }
+
+    public function listsWisataByLokasiAndTrip($trip, $lokasi)
+    {
+        $result = DB::table('paket_wisata as p')
+                  ->select('p.*', 'l.*', 't.*')
+                  ->join('trip as t', 't.id_trip', '=', 'p.id_trip')
+                  ->join('lokasi as l', 'l.id_lokasi', '=', 'p.id_lokasi')                    
+                  ->where(array('p.status_delete' => 0, 'p.id_trip' => $trip, 'p.id_lokasi' => $lokasi))
+                  ->get();
+        return $result;
+    }
 }

@@ -60,4 +60,14 @@ class TanggalWisata extends Model
                   ->get();
         return $result;
     }
+
+     public function tanggalWisataByPemesanan($id)
+    {
+        $result = DB::table('tanggal_wisata as f')
+                  ->join('paket_wisata as k', 'k.id_wisata', '=', 'f.id_wisata')
+                  ->join('pemesanan_detail as p', 'p.id_wisata', '=', 'f.id_wisata')
+                  ->where(array('p.nomor_pemesanan' => $id))
+                  ->get();
+        return $result;
+    }
 }

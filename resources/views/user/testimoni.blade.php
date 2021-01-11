@@ -178,6 +178,27 @@
       font-family: serif;
       font-size: 17px;
     }
+
+    a.list-group-item {
+        height:auto;
+        min-height:220px;
+    }
+    a.list-group-item.active small {
+        color:#fff;
+    }
+    .stars {
+        margin:20px auto 1px;    
+    }
+
+    .well {
+      min-height: 0px;
+      padding: 0px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 4px;
+      -webkit-box-shadow: none;
+      background-color: #E6E6FA;
+    }
   </style>
 </head>
 <body style="background-color: #E6E6FA;">
@@ -220,150 +241,37 @@
     </div>
   </nav>
 
-  <div class="container">
-    <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
-      <table id="example" class="table table-striped table-bordered table-hover" style="width: 97.5%;">
-        <thead>
-          <tr>
-            <th>Nomor Pemesanan</th>
-            <th>Total Pembayaran</th>
-            <th>Jumlah Yang Dibayar</th>
-            <th>Status Pembayaran</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($data as $p)
-          <tr>
-            <td>{{ $p->nomor_pemesanan }}</td>
-            <td>IDR {{ number_format($p->total, 0, '.', '.') }}</td>
-            <td>IDR {{ number_format($p->jumlah_bayar, 0, '.', '.') }}</td>
-            <td>
-              @if($p->status_pemesanan == 0)
-                Belum Bayar
-              @elseif($p->status_pemesanan == 1 && $p->pembayaran == 1)
-                Sudah Bayar (DP)
-              @elseif(($p->status_pemesanan == 2 || $p->status_pemesanan == 3) && $p->pembayaran == 2)
-                Lunas
-              @endif
-            </td>
-            <td>
-              @if($p->status_approve == 1)
-                Disetujui
-              @elseif($p->status_approve == 2)
-                Ditolak
-              @else
-                Diproses
-              @endif
-            </td>
-            <td>
-              <a href="{{ URL('user/konfirmasi/detail/' . $p->nomor_pemesanan) }}">
-                <button type="button" class="btn btn-warning">Detail</button>
-              </a>
-              @if($p->status_pemesanan == 0)
-                <button type="button" class="btn btn-info edit" data-toggle="modal" data-target="#myModal"
-                pemesananid="<?php echo $p->id_pemesanan;?>">Upload Bukti Bayar</button>
-              @endif 
-              @if($p->pembayaran == 2)
-                @if($p->status_pemesanan == 2)
-                <button type="button" class="btn btn-danger refund" data-toggle="modal" data-target="#myModalRefund"
-                pemesananid="<?php echo $p->nomor_pemesanan;?>">Refund</button>
-                @endif
-                @if($p->status_pemesanan == 2)
-                <a href="{{ URL('user/reschedule/add/' . $p->nomor_pemesanan) }}">
-                  <button type="button" class="btn btn-success">Reschedule</button>
-                </a>
-                @endif
-              @elseif($p->pembayaran == 1)
-                <button type="button" class="btn btn-primary lunas" data-toggle="modal"  data-target="#myModalLunas"
-                pemesananid="<?php echo $p->id_pemesanan;?>" total="<?php echo ($p->total - $p->jumlah_bayar);?>">Bayar Lunas</button>
-              @endif 
-            </td>
-          </tr>
+  <div class="container" style="margin-bottom: 15px;">
+    <div class="row">
+      <div class="well" style="width: 97.5%;">
+        <h2 class="text-left">Komentar</h2>
+        <form method="post" action="{{ URL('user/testimoni/store') }}">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <textarea id="message" name="isi" class="form-control" rows="5" placeholder="Tulis Komentar" required></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Komentar</button>
+          </div>
+        </form>
+        <div class="list-group" style="margin-top: 50px;">
+          @foreach($data as $k)
+          <a href="#" class="list-group-item">
+            <div class="media col-md-3">
+              <figure class="pull-left">
+                <img class="media-object img-rounded img-responsive" src="{{ asset('images/user.png') }}" alt="{{ $k->nama_komentar }}" style="margin-top: 15px;">
+              </figure>
+            </div>
+            <div class="col-md-9" style="margin-top: 15px;">
+              <h4 class="list-group-item-heading"> {{ $k->nama_komentar }} </h4>
+              <span style="font-size: 11px;"><b>{{ date('d-m-Y', strtotime($k->tgl_komentar)) }}</b></span>
+              <p class="list-group-item-text" style="margin-top: 10px;"> 
+              {{ $k->isi }}                        
+              </p>
+            </div>
+          </a>
           @endforeach
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="{{ URL('user/konfirmasi/upload/gambar') }}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Upload Bukti Pembayaran</h4>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="id_pemesanan" value="">
-              <p>
-                <input type="file" name="image" class="form-control">
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="myModalLunas" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="{{ URL('user/konfirmasi/lunas/upload/gambar') }}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Bayar & Upload Bukti Pembayaran Lunas</h4>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="id_pemesanan" value="">
-              <p>
-                <label>Bukti Bayar</label>
-                <input type="file" name="image" class="form-control">
-              </p>
-              <p>
-                <label>Jumlah yang dibayar</label>
-                <input type="text" name="total" value="" class="form-control" disabled>
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="myModalRefund" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="{{ URL('user/refund/add') }}" method="post" enctype="multipart/form-data">
-          {{ csrf_field() }}
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Refund</h4>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="nomor_pemesanan" value="">
-              <p>
-                Apakah Anda ingin melakukan refund?
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
-              <button type="submit" class="btn btn-primary">Ya</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -427,23 +335,6 @@
       </div>
   </footer>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-     $('.edit').click(function(){
-        var id = $(this).attr('pemesananid'); //get 
-         $('input[name="id_pemesanan"]').val(id);
-     });
-     $('.lunas').click(function(){
-        var id = $(this).attr('pemesananid'); //get 
-        var total = $(this).attr('total'); //get 
-        $('input[name="id_pemesanan"]').val(id);
-        $('input[name="total"]').val(total);
-     });
-     $('.refund').click(function(){
-        var nomor = $(this).attr('pemesananid');
-        $('input[name="nomor_pemesanan"]').val(nomor);
-     });
-    });
-</script>
+
 </body>
 </html>

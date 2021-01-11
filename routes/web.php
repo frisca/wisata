@@ -132,3 +132,19 @@ Route::get('/user/refund', 'RefundUserController@index');
 Route::get('/user/reschedule', 'RescheduleUserController@index');
 Route::get('/user/reschedule/add/{nomor}', 'RescheduleUserController@add');
 Route::post('/user/reschedule/store/{nomor}', 'RescheduleUserController@store');
+Route::post('/user/refund/add', 'RefundUserController@add');
+Route::get('/user/konfirmasi/detail/{id}', 'KonfirmasiController@detail');
+Route::get('/user/refund/detail/{id}', 'RefundUserController@detail');
+Route::get('/user/reschedule/detail/{id}', 'RescheduleUserController@detail');
+
+Route::get('/about-us', 'AboutUsController@index');
+Route::get('user/about-us', 'AboutUsController@about');
+Route::post('user/proses/cari', 'HomeUserController@prosesCari');
+Route::get('user/cari', 'HomeUserController@cari');
+
+Route::get('/testimoni', 'KomentarController@index');
+Route::get('user/testimoni', 'KomentarController@testimoni');
+Route::post('user/testimoni/store', 'KomentarController@store');
+
+Route::post('proses/cari', 'HomeUserController@prosesCariUser');
+Route::get('cari', 'HomeUserController@cariUser');
