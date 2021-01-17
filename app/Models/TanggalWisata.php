@@ -56,7 +56,7 @@ class TanggalWisata extends Model
     {
         $result = DB::table('tanggal_wisata as f')
                   ->join('paket_wisata as k', 'k.id_wisata', '=', 'f.id_wisata')
-                  ->where(array('f.id_wisata' => $id))
+                  ->where(array('f.id_wisata' => $id, 'f.status_delete' => 0))
                   ->get();
         return $result;
     }

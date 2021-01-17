@@ -227,17 +227,56 @@
         @if($message = Session::get('success'))
             <div id="login-alert" class="alert alert-success col-sm-12" style="width: 97.5%;">{{ $message }}</div>
         @endif
+        <h2>Data Pemesan</h2>
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>Nama Pemesan: </b><br>
+          <input type="text" name="nama_pemesanan" class="form-control">
+        </p>
+
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>No. HP / Telepon</b>
+          <input type="text" name="hp" class="form-control">
+        </p>
+
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>Alamat</b>
+          <textarea class="form-control" name="alamat" rows="5" cols="5"></textarea>
+        </p>     
+
+        <p style="text-align:left; font-size: 18px; color: #000;">
+          <b>Email</b>
+          <input type="text" name="email" class="form-control">
+        </p>  
+
+        <br>
+
+        @if(strlen($fasilitas) > 0)
+          <h2>Data Untuk Pemesanan Tiket</h2>
+          @foreach($data as $val)
+            @for ($i=1;$i<$val->jumlah_orang;$i++)
+            <p style="text-align:left; font-size: 18px; color: #000;">
+              <b>Nama Pemesan - {{ $i }}: </b>
+              <input type="text" name="nama_tiket_pemesan[]" class="form-control">
+            </p>
+            @endfor
+          @endforeach
+        @endif     
+
+        <br>
+
+        <h2>Pembayaran</h2>
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Metode Pembayaran: </b><br>
           <select class="form-control" name="pembayaran" style="width: 97.5%;">
             <option value="1">DP</option>
-            <option value="">Lunas</option>
+            <option value="2">Lunas</option>
           </select>
         </p>
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Jumlah Bayar: </b><br>
           <input type="text" name="jumlah_bayar" placeholder="Minimum 30% dari total" class="form-control" style="    width: 97.5%;">
         </p>
+        <br>
         <button class="btn btn-primary btn-lg" type="submit">Bayar</button>
       </form>
     </div>

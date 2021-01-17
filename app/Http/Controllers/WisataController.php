@@ -72,7 +72,7 @@ class WisataController extends Controller
     {
         $lokasi = $this->lokasi->lokasi();
         $trip = $this->trip->trips();
-        $data = $this->wisata->detail($id);
+        $data = $this->wisata->detailWisata($id);
         $fasilitas = $this->fasilitas->lists($id);
         return view('wisata/edit', ['data' => $data, 'listLokasi' => $lokasi, 'trips' => $trip, 'listFasilitas' => $fasilitas]);
     }
@@ -91,7 +91,7 @@ class WisataController extends Controller
             'status_wisata' => 'required'
         ]);
 
-        $res = $this->wisata->detail($request->input('id_wisata'));
+        $res = $this->wisata->detailWisata($request->input('id_wisata'));
 
         
         foreach ($res as $key => $value) {
@@ -139,7 +139,7 @@ class WisataController extends Controller
 
     public function detail($id)
     {
-        $data = $this->wisata->detail($id);
+        $data = $this->wisata->detailWisata($id);
         return view('wisata/detail', ['data' => $data]);
     }
 

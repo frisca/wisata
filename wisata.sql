@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2021 at 12:16 PM
+-- Generation Time: Jan 17, 2021 at 02:40 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -20,6 +20,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `wisata`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_pemesan`
+--
+
+CREATE TABLE `data_pemesan` (
+  `id_data_pemesan` int(11) NOT NULL,
+  `nama_pemesan` varchar(100) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `nomor_pemesanan` varchar(200) NOT NULL,
+  `hp` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_pemesan`
+--
+
+INSERT INTO `data_pemesan` (`id_data_pemesan`, `nama_pemesan`, `alamat`, `email`, `nomor_pemesanan`, `hp`) VALUES
+(1, 'test1', 'balige', 'test@gmail.com', '007', '0812121'),
+(2, 'test1', 'balige', 'test@gmail.com', '007', '0812121'),
+(3, 'sa', 'a', 'a', '007', '2'),
+(4, 'owew', 'qqwq', 'a', '007', '4'),
+(5, 'owew', 'qqwq', 'a', '007', '4'),
+(6, 'owew', 'qqwq', 'a', '007', '4'),
+(7, 'owew', 'qqwq', 'a', '007', '4'),
+(8, 'owew', 'qqwq', 'a', '007', '4'),
+(9, 'owew', 'qqwq', 'a', '007', '4'),
+(10, 'owew', 'qqwq', 'a', '007', '4'),
+(11, 'owew', 'qqwq', 'a', '007', '4'),
+(12, 'owew', 'qqwq', 'a', '007', '4');
 
 -- --------------------------------------------------------
 
@@ -103,6 +136,14 @@ CREATE TABLE `komentar` (
   `tgl_komentar` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`id_komentar`, `nama_komentar`, `isi`, `tgl_komentar`) VALUES
+(1, 'lina', 'testing sekarang', '2021-01-11'),
+(2, 'test', 'ok lah', '2021-01-11');
+
 -- --------------------------------------------------------
 
 --
@@ -124,7 +165,8 @@ INSERT INTO `lokasi` (`id_lokasi`, `lokasi`, `status_lokasi`, `status_delete`) V
 (1, 'Bali', 1, 0),
 (2, 'Pulau Nusa Dua', 1, 0),
 (4, 'Thailand', 0, 0),
-(5, 'Singapur', 0, 1);
+(5, 'Singapur', 0, 1),
+(6, 'Balige', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -184,7 +226,7 @@ CREATE TABLE `paket_wisata` (
 --
 
 INSERT INTO `paket_wisata` (`id_wisata`, `nama_wisata`, `id_lokasi`, `waktu`, `harga`, `id_trip`, `status_wisata`, `status_delete`, `image`, `jumlah_orang`) VALUES
-(1, 'Pulau Nusa', 1, '3d2n', 10000, 1, 1, 0, '1610206985.jpeg', 0);
+(1, 'Pulau Nusa', 1, '3d2n', 10000, 1, 1, 0, '1610206985.jpeg', 3);
 
 -- --------------------------------------------------------
 
@@ -208,18 +250,8 @@ CREATE TABLE `pelanggan` (
   `id_pengguna` int(11) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `alamat` varchar(100) NOT NULL,
-  `tgl_lahir` date NOT NULL
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pelanggan`
---
-
-INSERT INTO `pelanggan` (`id_pengguna`, `nama`, `email`, `username`, `password`, `alamat`, `tgl_lahir`) VALUES
-(1, 'lina', 'lina@gmail.com', 'lina', '12345', 'jakarta', '2021-01-11');
 
 -- --------------------------------------------------------
 
@@ -235,19 +267,26 @@ CREATE TABLE `pemesanan` (
   `total` int(11) NOT NULL,
   `pembayaran` int(11) NOT NULL,
   `bukti_pembayaran` varchar(200) DEFAULT NULL,
-  `tgl_wisata` date NOT NULL,
+  `tgl_wisata` date DEFAULT NULL,
   `status_delete` int(11) NOT NULL,
   `id_pelanggan` int(11) NOT NULL,
   `nama_pelanggan` varchar(50) NOT NULL,
-  `status_approve` int(11) NOT NULL
+  `status_approve` int(11) NOT NULL,
+  `jumlah_bayar` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`id_pemesanan`, `nomor_pemesanan`, `status_pemesanan`, `tgl_pemesanan`, `total`, `pembayaran`, `bukti_pembayaran`, `tgl_wisata`, `status_delete`, `id_pelanggan`, `nama_pelanggan`, `status_approve`) VALUES
-(1, 'S001', 1, '2021-01-10', 10000, 1, '0', '2021-01-04', 0, 1, 'lina', 0);
+INSERT INTO `pemesanan` (`id_pemesanan`, `nomor_pemesanan`, `status_pemesanan`, `tgl_pemesanan`, `total`, `pembayaran`, `bukti_pembayaran`, `tgl_wisata`, `status_delete`, `id_pelanggan`, `nama_pelanggan`, `status_approve`, `jumlah_bayar`, `status`) VALUES
+(1, '001', 1, '2021-01-10', 10000, 1, '0', '2021-01-04', 0, 1, 'lina', 0, 0, 0),
+(5, '002', 3, '2021-01-10', 10000, 2, '1610330772.jpeg', NULL, 0, 8, 'test', 0, 4000, 0),
+(6, '004', 1, '2021-01-11', 10000, 1, '9.png', NULL, 0, 8, 'test', 0, 10000, 0),
+(7, '005', 3, '2021-01-11', 10000, 2, NULL, NULL, 0, 8, 'test', 1, 5000, 0),
+(8, '006', 0, '2021-01-17', 10000, 0, NULL, NULL, 0, 7, 'Admin', 0, NULL, 0),
+(9, '007', 0, '2021-01-17', 10000, 0, NULL, NULL, 0, 8, 'test', 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -274,7 +313,12 @@ CREATE TABLE `pemesanan_detail` (
 --
 
 INSERT INTO `pemesanan_detail` (`id_pemesanan_detail`, `nama_wisata`, `jumlah`, `nomor_pemesanan`, `lokasi`, `trip`, `waktu`, `status_delete`, `id_wisata`, `dari_tgl_wisata`, `sampai_tgl_wisata`) VALUES
-(2, 'Pulau Nusa Dua', 10000, 'S001', 'Bali', 'One Day', '3d2n', 0, 1, '2021-01-10', '2021-01-24');
+(2, 'Pulau Nusa Dua', 10000, 'S001', 'Bali', 'One Day', '3d2n', 0, 1, '2021-01-10', '2021-01-24'),
+(4, 'Pulau Nusa', 10000, '002', 'Bali', 'One Day', '3d2n', 0, 1, '2020-01-08', '2020-01-31'),
+(5, 'Pulau Nusa', 10000, '004', 'Bali', 'One Day', '3d2n', 0, 1, '2020-01-08', '2020-01-31'),
+(6, 'Pulau Nusa', 10000, '005', 'Bali', 'One Day', '3d2n', 0, 1, '2020-01-08', '2020-01-31'),
+(7, 'Pulau Nusa', 10000, '006', 'Bali', 'One Day', '3d2n', 0, 1, '2012-01-13', '2012-01-30'),
+(8, 'Pulau Nusa', 10000, '007', 'Bali', 'One Day', '3d2n', 0, 1, '2012-01-13', '2012-01-30');
 
 -- --------------------------------------------------------
 
@@ -283,20 +327,30 @@ INSERT INTO `pemesanan_detail` (`id_pemesanan_detail`, `nama_wisata`, `jumlah`, 
 --
 
 CREATE TABLE `refund` (
-  `id_refund` int(11) NOT NULL,
   `nomor_pemesanan` varchar(100) NOT NULL,
   `total_sebelum` int(11) NOT NULL,
   `total_refund` int(11) NOT NULL,
   `nama_pelanggan` varchar(100) NOT NULL,
   `waktu` varchar(100) NOT NULL,
   `lokasi` varchar(100) NOT NULL,
-  `trip` int(100) NOT NULL,
+  `trip` varchar(100) NOT NULL,
   `status_approve` int(11) NOT NULL,
-  `datri_tgl_wisata` date NOT NULL,
+  `dari_tgl_wisata` date NOT NULL,
   `sampai_tgl_wisata` date NOT NULL,
   `nama_wisata` varchar(100) NOT NULL,
-  `id_pelanggan` int(11) NOT NULL
+  `id_pelanggan` int(11) NOT NULL,
+  `tgl_refund` date NOT NULL,
+  `id_refund` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `refund`
+--
+
+INSERT INTO `refund` (`nomor_pemesanan`, `total_sebelum`, `total_refund`, `nama_pelanggan`, `waktu`, `lokasi`, `trip`, `status_approve`, `dari_tgl_wisata`, `sampai_tgl_wisata`, `nama_wisata`, `id_pelanggan`, `tgl_refund`, `id_refund`) VALUES
+('003', 1000, 5000, 'test', '3d2n', 'bali', '1', 0, '2021-01-11', '2021-01-13', 'Pulau Nusa', 8, '2021-01-12', 1),
+('003', 1000, 5000, 'test', '3d2n', 'bali', '1', 0, '2021-01-11', '2021-01-13', 'Pulau Nusa', 8, '2021-01-12', 2),
+('005', 10000, 2500, 'test', '3d2n', 'Bali', 'One Day', 0, '2012-02-01', '2012-02-28', 'Pulau Nusa', 8, '2021-01-11', 3);
 
 -- --------------------------------------------------------
 
@@ -326,7 +380,9 @@ CREATE TABLE `reschedule` (
 --
 
 INSERT INTO `reschedule` (`id_reschedule`, `nomor_pemesanan`, `total_sebelum`, `total_reschedule`, `status_delete`, `dari_tgl_wisata`, `sampai_tgl_wisata`, `nama_wisata`, `lokasi`, `trip`, `waktu`, `status_approve`, `nama_pelanggan`, `id_pelanggan`) VALUES
-(1, 'S002', 10000, 5000, 0, '2021-01-10', '2021-01-19', 'Pulau Nusa Dua', 'Bali', 'One Day', '3d2n', 0, 'lina', 1);
+(1, '002', 10000, 5000, 0, '2021-01-10', '2021-01-19', 'Pulau Nusa Dua', 'Bali', 'One Day', '3d2n', 0, 'lina', 8),
+(3, '005', 10000, 10000, 0, '2012-02-01', '2012-02-28', 'Pulau Nusa', 'Bali', 'One Day', '3d2n', 0, 'test', 8),
+(6, '002', 10000, 10000, 0, '2012-02-01', '2012-02-28', 'Pulau Nusa', 'Bali', 'One Day', '3d2n', 0, 'test', 8);
 
 -- --------------------------------------------------------
 
@@ -348,7 +404,7 @@ CREATE TABLE `syarat` (
 --
 
 INSERT INTO `syarat` (`id_syarat`, `judul`, `keterangan`, `id_wisata`, `status_syarat`, `status_delete`) VALUES
-(1, 'Pembayaran', '<p>- testing</p>', 1, 0, 1);
+(1, 'Pembayaran', '<p> testing</p>', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -369,7 +425,8 @@ CREATE TABLE `tanggal_wisata` (
 --
 
 INSERT INTO `tanggal_wisata` (`dari_tanggal`, `sampai_tanggal`, `id_wisata`, `status_delete`, `id_tanggal`) VALUES
-('2020-01-08', '2020-01-31', 1, 1, 1);
+('2012-01-13', '2012-01-30', 1, 0, 2),
+('2012-02-01', '2012-02-28', 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -380,11 +437,22 @@ INSERT INTO `tanggal_wisata` (`dari_tanggal`, `sampai_tanggal`, `id_wisata`, `st
 CREATE TABLE `tiket_pemesanan` (
   `id_tiket_pemesanan` int(11) NOT NULL,
   `nama_pemesanan` varchar(200) NOT NULL,
-  `nomor_pemesanan` int(11) NOT NULL,
+  `nomor_pemesanan` varchar(50) NOT NULL,
   `status_delete` int(11) NOT NULL,
   `nama_wisata` varchar(100) NOT NULL,
   `id_wisata` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tiket_pemesanan`
+--
+
+INSERT INTO `tiket_pemesanan` (`id_tiket_pemesanan`, `nama_pemesanan`, `nomor_pemesanan`, `status_delete`, `nama_wisata`, `id_wisata`) VALUES
+(1, 'v', '007', 0, 'Pulau Nusa', 1),
+(2, 'v', '007', 0, 'Pulau Nusa', 1),
+(3, 'vik', '007', 0, 'Pulau Nusa', 1),
+(4, 'vik', '007', 0, 'Pulau Nusa', 1),
+(5, 'vik', '007', 0, 'Pulau Nusa', 1);
 
 -- --------------------------------------------------------
 
@@ -429,11 +497,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `activation_code`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, 'Ani', 'admin@gmail.com', '$2y$10$qhtL.SNj9beiX46VLG3Li.ENIis1tmtxAf8.5n5pOFpnl9hLnspUC', '', 1, 'XOXcdAczPn99QiVGNdudmF3DxIz9oSXysPHrnTkmQQk9vZUKr9LwZqcXjYT3', '2015-07-19 14:12:20', '2015-07-19 14:13:10');
+(7, 'Admin', 'admin@gmail.com', '$2y$10$qhtL.SNj9beiX46VLG3Li.ENIis1tmtxAf8.5n5pOFpnl9hLnspUC', '1', 1, 'Zy619s62VwQjIwXXkqfec0ZWPcxARtcl7s4zJGg2FrcA9cznhleCDJCk09UI', '2021-01-10 14:04:39', '2021-01-11 14:04:44'),
+(8, 'test', 'test@gmail.com', '$2y$10$I/xVrN52VrhDeFM6TYFlAe0AdK5EZO6IkAWGuvl4U8DTmQld5Kusu', '2', 1, 'SWEc5UsB4j8VyF3lnjTqT6krs1xRaOQCtD6YqwSjGIFSisihQ60d7P3TMJlv', '2021-01-10 07:15:11', '2021-01-10 07:15:11');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `data_pemesan`
+--
+ALTER TABLE `data_pemesan`
+  ADD PRIMARY KEY (`id_data_pemesan`);
 
 --
 -- Indexes for table `fasilitas`
@@ -503,6 +578,12 @@ ALTER TABLE `pemesanan_detail`
   ADD PRIMARY KEY (`id_pemesanan_detail`);
 
 --
+-- Indexes for table `refund`
+--
+ALTER TABLE `refund`
+  ADD PRIMARY KEY (`id_refund`);
+
+--
 -- Indexes for table `reschedule`
 --
 ALTER TABLE `reschedule`
@@ -544,6 +625,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `data_pemesan`
+--
+ALTER TABLE `data_pemesan`
+  MODIFY `id_data_pemesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
@@ -565,13 +652,13 @@ ALTER TABLE `kategori_fasilitas`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `lokasi`
 --
 ALTER TABLE `lokasi`
-  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `oborolan`
@@ -589,25 +676,31 @@ ALTER TABLE `paket_wisata`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pemesanan_detail`
 --
 ALTER TABLE `pemesanan_detail`
-  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `refund`
+--
+ALTER TABLE `refund`
+  MODIFY `id_refund` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reschedule`
 --
 ALTER TABLE `reschedule`
-  MODIFY `id_reschedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_reschedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `syarat`
@@ -619,13 +712,13 @@ ALTER TABLE `syarat`
 -- AUTO_INCREMENT for table `tanggal_wisata`
 --
 ALTER TABLE `tanggal_wisata`
-  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tanggal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tiket_pemesanan`
 --
 ALTER TABLE `tiket_pemesanan`
-  MODIFY `id_tiket_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tiket_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `trip`
@@ -637,7 +730,7 @@ ALTER TABLE `trip`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

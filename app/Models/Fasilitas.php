@@ -54,4 +54,13 @@ class Fasilitas extends Model
                   ->update($data);
         return true;
     }
+
+    public function isTiket($id)
+    {
+        $result = DB::table('fasilitas as f')
+                  ->join('kategori_fasilitas as k', 'k.id_kateg_fasilitas', '=', 'f.id_kateg_fasilitas')
+                  ->where(array('f.id_wisata' => $id, 'f.is_tiket' => 1))
+                  ->get();
+        return $result;
+    }
 }

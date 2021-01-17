@@ -11,12 +11,14 @@ use App\Models\TiketPemesanan;
 use App\Models\TanggalWisata;
 use App\Models\Wisata;
 use App\Models\Trip;
+use App\Models\Fasilitas;
+use App\Models\DataPemesan;
 use Input;
 
 class PemesananController extends Controller
 {
 
-	public function __construct(pemesanan $pemesanan, pemesanandetail $pemesanandetail, tiketpemesanan $tiketpemesanan, tanggalwisata $tanggalwisata, wisata $wisata, trip $trip)
+	public function __construct(pemesanan $pemesanan, pemesanandetail $pemesanandetail, tiketpemesanan $tiketpemesanan, tanggalwisata $tanggalwisata, wisata $wisata, trip $trip, fasilitas $fasilitas, datapemesan $datapemesan)
   	{  
      	$this->pemesanan= $pemesanan;
         $this->pemesanandetail = $pemesanandetail;
@@ -24,6 +26,8 @@ class PemesananController extends Controller
         $this->tanggalwisata = $tanggalwisata;
         $this->wisata = $wisata;
         $this->trip = $trip;
+        $this->fasilitas = $fasilitas;
+        $this->datapemesan = $datapemesan;
   	}
     
 	public function index()
@@ -87,7 +91,8 @@ class PemesananController extends Controller
 			'tgl_pemesanan' => date('Y-m-d'),
 			'pembayaran' => 0,
 			'status_delete' => 0,
-			'status_approve' => 0
+			'status_approve' => 0,
+			'status' => 0
 		);
 		// var_dump($nmr_order);exit();
 		// var_dump($data);exit();
@@ -116,7 +121,8 @@ class PemesananController extends Controller
 	public function pembayaran($nomor, $id) {
 		$trip = $this->trip->lists();
 		$data = $this->wisata->wisataByTrip($id);
-		return view('user/pembayaran', ['nomor_pemesanan' => $nomor, 'trip' => $trip, 'data' => $data, 'id' =>$id]);
+		$fasilitas = $this->fasilitas->isTiket($id);
+		return view('user/pembayaran', ['nomor_pemesanan' => $nomor, 'trip' => $trip, 'data' => $data, 'id' =>$id, 'fasilitas' => $fasilitas]);
 	}
 
 	public function prosesPembayaran(Request $request, $nomor, $id) {
@@ -130,9 +136,34 @@ class PemesananController extends Controller
 				return  redirect('user/pembayaran/' . $nomor . '/wisata/' . $id)
                 ->with('success','Jumlah bayar minimum ' . $total . '. ');
 			}else{
+				$pemesan = array(
+					'nama_pemesan' => $request->input('nama_pemesan'),
+					'alamat' => $request->input('alamat'),
+					'hp' => $request->input('hp'),
+					'email' => $request->input('email'),
+					'nomor_pemesanan' => $nomor
+				);
+				$storeDataPemesan = $this->datapemesan->store($pemesan);
+
+				if($request->input('nama_tiket_pemesan') > 0){
+					foreach ($request->input('nama_tiket_pemesan') as $keys => $values) {
+						if($values != ""){
+							$data_tiket = array(
+								'nama_pemesanan' => $values,
+								'nomor_pemesanan' => $nomor,
+								'status_delete' => 0,
+								'nama_wisata' => $value->nama_wisata,
+								'id_wisata' => $id
+							);
+							// var_dump($data_tiket);exit();
+							$storeTiket = $this->tiketpemesanan->store($data_tiket);
+						}
+					}
+				}
+
 				$data = array(
 		        	'pembayaran' => $request->input('pembayaran'),
-		        	'jumlah_bayar' => $request->input('jumlah_bayar')
+		        	'jumlah_bayar' => $request->input('jumlah_bayar'),
 		        );
 
 		        $result = $this->pemesanan->change($nomor, $data);
