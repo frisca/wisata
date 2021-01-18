@@ -50,7 +50,7 @@ class PemesananController extends Controller
 		$wisata = $this->wisata->detail($id);
 		$nomr_order = $this->pemesanan->pemesananByDesc();
 
-		if(strlen($nomr_order) <= 0) {
+		if(count($nomr_order) <= 0) {
 			$nmr_order = '001';
 		}else{
 			foreach ($nomr_order as $key => $value) {
