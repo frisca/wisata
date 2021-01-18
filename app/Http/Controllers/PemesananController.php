@@ -137,7 +137,7 @@ class PemesananController extends Controller
                 ->with('success','Jumlah bayar minimum ' . $total . '. ');
 			}else{
 				$pemesan = array(
-					'nama_pemesan' => $request->input('nama_pemesan'),
+					'nama_pemesan' => $request->input('nama_pemesanan'),
 					'alamat' => $request->input('alamat'),
 					'hp' => $request->input('hp'),
 					'email' => $request->input('email'),
