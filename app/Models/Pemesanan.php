@@ -69,8 +69,9 @@ class Pemesanan extends Model
 
     public function pemesananById($id)
     {
-        $result = DB::table('pemesanan')
-                  ->where('id_pelanggan', $id)
+        $result = DB::table('pemesanan as p')
+                  ->leftJoin('pemesanan_detail as pd', 'pd.nomor_pemesanan', '=', 'p.nomor_pemesanan')
+                  ->where('p.id_pelanggan', $id)
                   ->get();
         return $result;
     }
@@ -81,5 +82,14 @@ class Pemesanan extends Model
                   ->where('id_pemesanan', '=', $id)
                   ->update($data);
         return true;
+    }
+
+    public function pemesananByIdLimit($id)
+    {
+        $result = DB::table('pemesanan')
+                  ->where(array('id_pelanggan' => $id, 'pembayaran' => 1))
+                  ->limit(1)
+                  ->get();
+        return $result;
     }
 }

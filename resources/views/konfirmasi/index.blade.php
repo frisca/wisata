@@ -265,7 +265,11 @@
               <a href="{{ URL('user/konfirmasi/detail/' . $p->nomor_pemesanan) }}">
                 <button type="button" class="btn btn-warning">Detail</button>
               </a>
-              @if($p->status_pemesanan == 0)
+              @if($p->jumlah_bayar == 0)
+              <a href="{{ URL('user/pembayaran/' . $p->nomor_pemesanan . '/wisata/' . $p->id_wisata) }}">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Selesaikan</button>
+              @endif 
+              @if($p->status_pemesanan == 0 && $p->jumlah_bayar != 0)
                 <button type="button" class="btn btn-info edit" data-toggle="modal" data-target="#myModal"
                 pemesananid="<?php echo $p->id_pemesanan;?>">Upload Bukti Bayar</button>
               @endif 

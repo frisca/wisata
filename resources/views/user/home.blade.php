@@ -220,6 +220,14 @@
     </div>
   </nav>
 
+  
+    
+    @if($exist == 1)
+    <div class="alert alert-danger" role="alert">
+      Peringatan. Silahkan lunasi pemesanan Anda. Terimakasih
+    </div>
+    @endif
+
   <img src="{{ URL('images/slide.jpeg') }}" style="width: 1138px;height: 355px;">
 
   <p>
