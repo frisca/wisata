@@ -28,8 +28,8 @@ class Pemesanan extends Model
     public function lists()
     {
         $result = DB::table('pemesanan')
-                  ->join('reschedule', 'pemesanan.nomor_pemesanan', '=', 'reschedule.nomor_pemesanan')
-                  ->where('pemesanan.status_delete', 0)
+                //   ->join('reschedule', 'pemesanan.nomor_pemesanan', '=', 'reschedule.nomor_pemesanan')
+                  ->where('status_delete', 0)
                   ->get();
         return $result;
     }

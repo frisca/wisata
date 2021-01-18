@@ -54,7 +54,7 @@
                             <td>
                               @if($pemesanan->pembayaran == 1)
                                 DP
-                              @elseif($pemesana->pembayaran == 2)
+                              @elseif($pemesanan->pembayaran == 2)
                                 Lunas
                               @else
 
@@ -63,7 +63,7 @@
                             <td>
                               @if($pemesanan->pembayaran == 1)
                                 Sebagian
-                              @elseif($pemesana->pembayaran == 2)
+                              @elseif($pemesanan->pembayaran == 2)
                                 Lunas
                               @else
                                 Belum Bayar
