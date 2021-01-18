@@ -45,6 +45,7 @@
                           <th scope="col">Total Refund</th>
                           <th scope="col">Dari Tanggal Wisata</th>
                           <th scope="col">Sampai Tanggal Wisata</th>
+                          <th>Status</th>
                           <th scope="col"></th>
                         </tr>
                       </thead>
@@ -58,9 +59,26 @@
                             <td>{{ $refund->dari_tgl_wisata }}</td>
                             <td>{{ $refund->sampai_tgl_wisata }}</td>
                             <td>
+                              @if($refund->status_approve == 1)
+                                Disetujui
+                              @elseif($refund->status_approve == 2)
+                                Ditolak
+                              @elseif($refund->status_approve == 0)
+                                Belum Diproses
+                              @endif
+                            </td>
+                            <td width: 18%>
                               <a href="{{ URL('refund/detail/' . $refund->nomor_pemesanan) }}">
                                 <button type="button" class="btn btn-icon btn-warning mr-1"><i class="ft-eye"></i></button>
                               </a>
+                              @if($refund->status_approve == 0)
+                                <a href="{{ URL('refund/approve', $refund->id_refund) }}">
+                                  <button class="btn btn-warning">Approve</button>
+                                </a>
+                                <a href="{{ URL('refund/reject', $refund->id_refund) }}">
+                                  <button class="btn btn-danger">Reject</button>
+                                </a>
+                              @endif
                             </td>
                           </tr>
                         @endforeach

@@ -64,4 +64,12 @@ class Reschedule extends Model
                   ->get();
         return $result;
     }
+
+    public function change($id, $data)
+    {
+        $result = DB::table('reschedule')
+                  ->where('id_reschedule', '=', $id)
+                  ->update($data);
+        return true;
+    }
 }

@@ -178,4 +178,24 @@ class PemesananController extends Controller
         $trip = $this->trip->lists();
         return view('user/pembayaran_info', ['data' => $data, 'trip' => $trip]);
 	}
+
+	public function approve(Request $request, $id)
+    {
+ 		$data = array(
+        	'status_approve' => 1
+        );
+
+        $result = $this->pemesanan->changeById($id, $data);
+        return redirect('pemesanan')->with('success','Data Disetujui. ');
+    }
+
+    public function reject(Request $request, $id)
+    {
+ 		$data = array(
+        	'status_approve' => 2
+        );
+
+        $result = $this->pemesanan->changeById($id, $data);
+        return redirect('pemesanan')->with('success','Data Ditolak. ');
+    }
 }

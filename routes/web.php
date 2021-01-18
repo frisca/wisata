@@ -152,3 +152,12 @@ Route::get('cari', 'HomeUserController@cariUser');
 Route::get('obrolan', 'ObrolanController@index');
 Route::get('obrolan/detail/{id}/{id1}', 'ObrolanController@detail');
 Route::get('obrolan/store/{id}', 'ObrolanController@store');
+
+Route::get('pemesanan/approve/{id}', 'PemesananController@approve');
+Route::get('pemesanan/reject/{id}', 'PemesananController@reject');
+
+Route::get('refund/approve/{id}', 'RefundController@approve');
+Route::get('refund/reject/{id}', 'RefundController@reject');
+
+Route::get('reschedule/approve/{id}', 'RescheduleController@approve');
+Route::get('reschedule/reject/{id}', 'RescheduleController@reject');

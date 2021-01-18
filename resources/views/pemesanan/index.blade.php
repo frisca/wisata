@@ -43,6 +43,7 @@
                           <th scope="col">Nomor Pemesanan</th>
                           <th scope="col">Pembayaran</th>
                           <th scope="col">Status Pembayaran</th>
+                          <th>Status</th>
                           <th scope="col"></th>
                         </tr>
                       </thead>
@@ -70,9 +71,26 @@
                               @endif
                             </td>
                             <td>
+                              @if($pemesanan->status_approve == 1)
+                                Disetujui
+                              @elseif($pemesanan->status_approve == 2)
+                                Ditolak
+                              @elseif($pemesanan->status_approve == 0)
+                                Belum Diproses
+                              @endif
+                            </td>
+                            <td>
                               <a href="{{ URL('pemesanan/detail/' . $pemesanan->nomor_pemesanan) }}">
                                 <button type="button" class="btn btn-icon btn-warning mr-1"><i class="ft-eye"></i></button>
                               </a>
+                              @if($pemesanan->status_approve == 0)
+                                <a href="{{ URL('pemesanan/approve', $pemesanan->id_pemesanan) }}">
+                                  <button class="btn btn-warning">Approve</button>
+                                </a>
+                                <a href="{{ URL('pemesanan/reject', $pemesanan->id_pemesanan) }}">
+                                  <button class="btn btn-danger">Reject</button>
+                                </a>
+                              @endif
                             </td>
                           </tr>
                         @endforeach

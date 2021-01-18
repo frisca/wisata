@@ -58,7 +58,8 @@ class KonfirmasiController extends Controller
     $data = array(
       'bukti_pembayaran' => $imageName,
       'status_pemesanan' => 2,
-      'pembayaran' => 2
+      'pembayaran' => 2,
+      'status_approve' => 0
     );
 
     $result = $this->pemesanan->changeById($request->input('id_pemesanan'), $data);

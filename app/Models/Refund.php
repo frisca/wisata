@@ -65,4 +65,12 @@ class Refund extends Model
                   ->insert($data);
         return true;
     }
+
+    public function change($id, $data)
+    {
+        $result = DB::table('refund')
+                  ->where('id_refund', '=', $id)
+                  ->update($data);
+        return true;
+    }
 }
