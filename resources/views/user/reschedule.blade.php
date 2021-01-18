@@ -226,7 +226,10 @@
         <thead>
           <tr>
             <th>Nomor Pemesanan</th>
-            <th>Total Sebelum</th>
+            <th>Nama Paket Wisata</th>
+            <th>Tanggal Awal</th>
+            <th>Tanggal Reschedule</th>
+            <th>Harga</th>
             <th>Total Reschedule</th>
             <th>Status</th>
             <th></th>
@@ -236,6 +239,9 @@
           @foreach($data as $p)
           <tr>
             <td>{{ $p->nomor_pemesanan }}</td>
+            <td>{{ $p->nama_wisata }}</td>
+            <td>{{ date('d-M-Y', strtotime($p->dari_tgl_wisata)) }} -{{ date('d-M-Y', strtotime($p->sampai_tgl_wisata)) }} </td>
+            <td>{{ date('d-M-Y', strtotime($p->dari)) }} - {{ date('d-M-Y', strtotime($p->sampai)) }}</td>
             <td>IDR {{ number_format($p->total_sebelum, 0, '.', '.') }}</td>
             <td>IDR {{ number_format($p->total_reschedule, 0, '.', '.') }}</td>
             <td>

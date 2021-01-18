@@ -226,7 +226,8 @@
         <thead>
           <tr>
             <th>Nomor Pemesanan</th>
-            <th>Total Sebelum</th>
+            <th>Nama Paket Wisata</th>
+            <th>Harga</th>
             <th>Total Refund</th>
             <th>Status</th>
             <th></th>
@@ -236,6 +237,7 @@
           @foreach($data as $p)
           <tr>
             <td>{{ $p->nomor_pemesanan }}</td>
+            <td>{{ $p->nama_wisata }}</td>
             <td>IDR {{ number_format($p->total_sebelum, 0, '.', '.') }}</td>
             <td>IDR {{ number_format($p->total_refund, 0, '.', '.') }}</td>
             <td>
