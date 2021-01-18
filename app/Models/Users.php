@@ -24,4 +24,11 @@ class Users extends Model
                   ->insert($data);
         return true;
     }
+
+    public function lists()
+    {
+        $result = DB::table('users')
+                  ->get();
+        return $result;
+    }
 }

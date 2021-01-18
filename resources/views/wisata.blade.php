@@ -239,17 +239,19 @@
 
       <p style="text-align:left; font-size: 18px; color: #000;">
         <b>Pilihan Tanggal: </b><br>
+        @if(count($tanggalwisata) > 1)
         @foreach($tanggalwisata as $index=>$t_wisata)
         {{ $index+1 }} . {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }} <br>
         @endforeach
+        @endif 
       </p>
     </div>
 
     <div class="col-md-12" style="margin-bottom: 10px;">
-      <a href="{{ URL('itenerary/' . $t_wisata->id_wisata) }}">
+      <a href="{{ URL('itenerary/' . $v_wisata->id_wisata) }}">
         <button class="btn btn-success btn-lg" type="button">Itenerary</button> &nbsp;&nbsp;
       </a>
-      <a href="{{ URL('syarat/' . $t_wisata->id_wisata) }}">
+      <a href="{{ URL('syarat/' . $v_wisata->id_wisata) }}">
         <button class="btn btn-success btn-lg" type="button">Syarat & Ketentuan</button>
       </a>
     </div>

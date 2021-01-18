@@ -35,7 +35,7 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ URL('profil') }}"><i class="ft-user"></i> Ubah Profile</a>
-                <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Oborolan</a>
+                <a class="dropdown-item" href="{{ URL('obrolan') }}"><i class="ft-message-square"></i> Obrolan</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ URL('logout') }}"><i class="ft-power"></i> Logout</a>
               </div>

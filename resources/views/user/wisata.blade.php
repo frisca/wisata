@@ -256,15 +256,17 @@
           <input type="radio" name="tgl_wisata" value="{{ $t_wisata->id_tanggal }}"> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
           @endforeach
         </p>
+        @if(count($tanggalwisata) > 0)
         <button class="btn btn-primary btn-lg" type="submit">Pesan</button>
+        @endif
       </form>
     </div>
 
     <div class="col-md-12" style="margin-bottom: 10px;">
-      <a href="{{ URL('user/itenerary/' . $t_wisata->id_wisata) }}">
+      <a href="{{ URL('user/itenerary/' . $v_wisata->id_wisata) }}">
         <button class="btn btn-success btn-lg" type="button">Itenerary</button> &nbsp;&nbsp;
       </a>
-      <a href="{{ URL('user/syarat/' . $t_wisata->id_wisata) }}">
+      <a href="{{ URL('user/syarat/' . $v_wisata->id_wisata) }}">
         <button class="btn btn-success btn-lg" type="button">Syarat & Ketentuan</button>
       </a>
     </div>

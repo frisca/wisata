@@ -191,11 +191,13 @@
         <li class="active"><a href="{{ URL('user/home') }}">Home</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Trip <span class="caret"></span></a>
           <ul class="dropdown-menu">
+          @if(count($trip))
             @foreach($trip as $v_trip)
               <li>
                 <a href="{{ URL('user/trip/' . $v_trip->id_trip) }}">{{ $v_trip->trip }}</a>
               </li>
             @endforeach
+          @endif
           </ul>
         </li>
         <li><a href="{{ URL('user/refund' )}}">Refund</a></li>

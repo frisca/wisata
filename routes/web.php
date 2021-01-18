@@ -148,3 +148,7 @@ Route::post('user/testimoni/store', 'KomentarController@store');
 
 Route::post('proses/cari', 'HomeUserController@prosesCariUser');
 Route::get('cari', 'HomeUserController@cariUser');
+
+Route::get('obrolan', 'ObrolanController@index');
+Route::get('obrolan/detail/{id}/{id1}', 'ObrolanController@detail');
+Route::get('obrolan/store/{id}', 'ObrolanController@store');
