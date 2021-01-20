@@ -37,11 +37,13 @@
                     {{ csrf_field() }}
                     <fieldset class="form-group">
                       <label>Kategori</label>
-                      <input type="text" class="form-control" id="kategoriFasilitas" name="kategori_wisata">
+                      <input type="text" class="form-control" id="kategoriFasilitas" name="kategori_wisata"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_kateg_fasilitas" name="status_kateg_fasilitas">
+                      <select class="form-control" id="status_kateg_fasilitas" name="status_kateg_fasilitas"
+                      required>
                         <option value="">Pilih Status</option>
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>

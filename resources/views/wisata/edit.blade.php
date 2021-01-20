@@ -65,10 +65,10 @@
                         <select class="form-control" id="lokasi" name="id_lokasi">
                           <option value="">Pilih Lokasi</option>
                           @foreach($listLokasi as $lokasi)
-                            @if($trip->id_trip == $wisata->id_trip)
-                              <option value="{{ $wisata->id_lokasi }}" selected>{{ $lokasi->lokasi }}</option>
+                            @if($lokasi->id_lokasi == $wisata->id_lokasi)
+                              <option value="{{ $lokasi->id_lokasi }}" selected>{{ $lokasi->lokasi }}</option>
                             @else
-                              <option value="{{ $wisata->id_lokasi }}">{{ $lokasi->lokasi }}</option>
+                              <option value="{{ $lokasi->id_lokasi }}">{{ $lokasi->lokasi }}</option>
                             @endif
                           @endforeach
                         </select>

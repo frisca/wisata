@@ -37,15 +37,17 @@
                     {{ csrf_field() }}
                     <fieldset class="form-group">
                       <label>Dari Tanggal</label>
-                      <input type="text" class="form-control" id="dari_tanggal" name="dari_tanggal" placeholder="Example: 2020-12-01">
+                      <input type="text" class="form-control" id="dari_tanggal" name="dari_tanggal" placeholder="Example: 2020-12-01"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Sampai Tanggal</label>
-                      <input type="text" class="form-control" id="sampai_tanggal" name="sampai_tanggal" placeholder="Example: 2020-12-01">
+                      <input type="text" class="form-control" id="sampai_tanggal" name="sampai_tanggal" placeholder="Example: 2020-12-01"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Wisata</label>
-                      <select class="form-control" id="wisata" name="id_wisata">
+                      <select class="form-control" id="wisata" name="id_wisata" required>
                         <option value="">Pilih Wisata</option>
                         @foreach($listWisata as $wisata)
                         <option value="{{ $wisata->id_wisata }}">{{ $wisata->nama_wisata }}</option>

@@ -34,10 +34,13 @@ class Pemesanan extends Model
         return $result;
     }
 
-    public function detail($nomor_pemesanan)
+    public function detail($id_pemesanan)
     {
-        $result = DB::table('pemesanan')
-                  ->where(array('nomor_pemesanan' => $nomor_pemesanan))
+        $result = DB::table('pemesanan as p')
+                  ->select('p.*')
+                //   ->rightJoin('data_pemesan as d', 'd.nomor_pemesanan', '=', 'p.nomor_pemesanan')
+                  ->where('p.id_pemesanan', '=', $id_pemesanan)
+                  ->limit(1)
                   ->get();
         return $result;
     }
@@ -70,8 +73,10 @@ class Pemesanan extends Model
     public function pemesananById($id)
     {
         $result = DB::table('pemesanan as p')
+                  ->select('p.*', 'pd.id_wisata', 'pd.nama_wisata')
                   ->leftJoin('pemesanan_detail as pd', 'pd.nomor_pemesanan', '=', 'p.nomor_pemesanan')
                   ->where('p.id_pelanggan', $id)
+                  ->orderBy('p.nomor_pemesanan', 'asc')
                   ->get();
         return $result;
     }

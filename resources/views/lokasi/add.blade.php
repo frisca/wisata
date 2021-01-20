@@ -37,11 +37,11 @@
                     {{ csrf_field() }}
                     <fieldset class="form-group">
                       <label>Lokasi</label>
-                      <input type="text" class="form-control" id="lokasi" name="lokasi">
+                      <input type="text" class="form-control" id="lokasi" name="lokasi" required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_lokasi" name="status_lokasi">
+                      <select class="form-control" id="status_lokasi" name="status_lokasi" required>
                         <option value="">Pilih Status</option>
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>

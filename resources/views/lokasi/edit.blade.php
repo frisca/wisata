@@ -39,11 +39,12 @@
                     <input type="hidden" class="form-control" name="id_lokasi" value="{{ $lokasi->id_lokasi }}">
                     <fieldset class="form-group">
                       <label>Lokasi</label>
-                      <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $lokasi->lokasi }}">
+                      <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $lokasi->lokasi }}"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_lokasi" name="status_lokasi">
+                      <select class="form-control" id="status_lokasi" name="status_lokasi" required>
                         <option value="">Pilih Status</option>
                         @if($lokasi->status_lokasi == 1)
                           <option value="1" selected>Aktif</option>

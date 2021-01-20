@@ -230,54 +230,58 @@
         <h2>Data Pemesan</h2>
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Nama Pemesan: </b><br>
-          <input type="text" name="nama_pemesanan" class="form-control">
+          <input type="text" name="nama_pemesanan" class="form-control" required>
         </p>
 
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>No. HP / Telepon</b>
-          <input type="text" name="hp" class="form-control">
+          <input type="text" name="hp" class="form-control" required>
         </p>
 
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Alamat</b>
-          <textarea class="form-control" name="alamat" rows="5" cols="5"></textarea>
+          <textarea class="form-control" name="alamat" rows="5" cols="5" required></textarea>
         </p>     
 
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Email</b>
-          <input type="text" name="email" class="form-control">
+          <input type="text" name="email" class="form-control" required>
         </p>  
 
         <br>
 
-        @if(strlen($fasilitas) > 0)
+       
+        @if(!$jmlh_fasilitas->isEmpty())
           <h2>Data Untuk Pemesanan Tiket</h2>
-          @foreach($data as $val)
-            @for ($i=1;$i<$val->jumlah_orang;$i++)
+          @for($i=1;$i<=$jmlh_org;$i++)
             <p style="text-align:left; font-size: 18px; color: #000;">
               <b>Nama Pemesan - {{ $i }}: </b>
               <input type="text" name="nama_tiket_pemesan[]" class="form-control">
             </p>
-            @endfor
-          @endforeach
+            <p style="text-align:left; font-size: 18px; color: #000;">
+              <b>KTP/SIM/PASPOR - {{ $i }}: </b>
+              <input type="text" name="ktp[]" class="form-control">
+            </p>
+            <br>
+          @endfor
         @endif     
 
-        <br>
-
         <h2>Pembayaran</h2>
+        <input type="hidden" class="form-control total" value="{{ $total }}">
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Metode Pembayaran: </b><br>
-          <select class="form-control" name="pembayaran" style="width: 97.5%;">
+          <select class="form-control pembayaran" name="pembayaran" style="width: 97.5%;" totalharga="{{ $total }}" required>
+            <option value="">Plih Metode Pembayaran</th>
             <option value="1">DP</option>
             <option value="2">Lunas</option>
           </select>
         </p>
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Jumlah Bayar: </b><br>
-          <input type="text" name="jumlah_bayar" placeholder="Minimum 30% dari total" class="form-control" style="    width: 97.5%;">
+          <input type="text" name="jumlah_bayar" placeholder="DP Minimum 30% dari total" class="form-control jumlah" style="width: 97.5%;" required>
         </p>
         <br>
-        <button class="btn btn-primary btn-lg" type="submit">Bayar</button>
+        <button class="btn btn-primary btn-lg paid" type="submit">Bayar</button>
       </form>
     </div>
   </div>
@@ -341,6 +345,24 @@
       </div>
   </footer>
 </div>
-
+<script>
+  $(document).ready(function(){
+    $('.pembayaran').change(function(){
+      var pembayaran = $('.pembayaran').val();
+      if(pembayaran == 1) {
+        var total = parseInt($('.total').val()) * 0.3;
+        $('.jumlah').val(total);
+      }else if(pembayaran == 2){
+        var total = parseInt($('.total').val());
+        $('.jumlah').val(total);
+      }else{
+        $('.jumlah').val('');
+      }
+    });
+    $('.paid').submit(function(){
+      
+    });
+  });
+</script>
 </body>
 </html>

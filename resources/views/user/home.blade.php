@@ -239,7 +239,7 @@
       {{ csrf_field() }}
       <div class="col-md-5">
         <label for="trip">Pilih Kategori</label>
-        <select id="trip" class="form-control" name="id_trip">
+        <select id="trip" class="form-control trip" name="id_trip">
           <option value="">Semua Kategori</option>
           @foreach($trip as $v_trip)
             <option value="{{ $v_trip->id_trip }}">{{ $v_trip->trip }}</option>
@@ -248,11 +248,11 @@
       </div>
       <div class="col-md-5">
         <label for="lokasi">Pilih Destinasi</label>
-        <select id="lokasi" class="form-control" name="id_lokasi">
+        <select id="lokasi" class="form-control lokasi" name="id_lokasi">
           <option value="">Semua Destinasi</option>
-          @foreach($lokasi as $v_lokasi)
+          <!-- @foreach($lokasi as $v_lokasi)
           <option value="{{ $v_lokasi->id_lokasi }}">{{ $v_lokasi->lokasi }}</option>
-          @endforeach
+          @endforeach -->
         </select>
       </div>
       <div class="col-md-2">

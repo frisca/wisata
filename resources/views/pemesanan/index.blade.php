@@ -58,7 +58,7 @@
                               @elseif($pemesanan->pembayaran == 2)
                                 Lunas
                               @else
-
+                                Pemesanan Belum Diselesaikan
                               @endif
                             </td>
                             <td>
@@ -71,19 +71,23 @@
                               @endif
                             </td>
                             <td>
-                              @if($pemesanan->status_approve == 1)
+                              @if($pemesanan->status_approve == 1 && $pemesanan->pembayaran > 0)
                                 Disetujui
-                              @elseif($pemesanan->status_approve == 2)
+                              @elseif($pemesanan->status_approve == 2 && $pemesanan->pembayaran > 0)
                                 Ditolak
-                              @elseif($pemesanan->status_approve == 0)
+                              @elseif($pemesanan->status_approve == 0 && $pemesanan->pembayaran > 0)
                                 Belum Diproses
+                              @endif
+
+                              @if($pemesanan->pembayaran == 0)
+                                Pemesanan Belum Diselesaikan.
                               @endif
                             </td>
                             <td>
-                              <a href="{{ URL('pemesanan/detail/' . $pemesanan->nomor_pemesanan) }}">
+                              <a href="{{ URL('pemesanan/detail/' . $pemesanan->id_pemesanan) }}">
                                 <button type="button" class="btn btn-icon btn-warning mr-1"><i class="ft-eye"></i></button>
                               </a>
-                              @if($pemesanan->status_approve == 0)
+                              @if($pemesanan->status_approve == 0 && $pemesanan->pembayaran > 0)
                                 <a href="{{ URL('pemesanan/approve', $pemesanan->id_pemesanan) }}">
                                   <button class="btn btn-warning">Approve</button>
                                 </a>

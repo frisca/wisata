@@ -26,4 +26,12 @@ class DataPemesan extends Model
                   ->insert($data);
         return true;
     }
+
+    public function detail($nomor)
+    {
+        $result = DB::table('data_pemesan')
+                  ->where(array('nomor_pemesanan' => $nomor))
+                  ->get();
+        return $result;
+    }
 }

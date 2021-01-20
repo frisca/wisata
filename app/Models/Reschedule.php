@@ -43,8 +43,11 @@ class Reschedule extends Model
 
     public function rescheduleByIdPelanggan($id)
     {
-        $result = DB::table('reschedule')
-                  ->where(array('id_pelanggan' => $id))
+        $result = DB::table('reschedule as r')
+                  ->select('r.*', 'd.nama_pemesan', 'pd.id_wisata')
+                  ->leftJoin('data_pemesan as d', 'd.nomor_pemesanan', '=', 'r.nomor_pemesanan')
+                  ->leftJoin('pemesanan_detail as pd', 'pd.nomor_pemesanan', '=', 'r.nomor_pemesanan')
+                  ->where(array('r.id_pelanggan' => $id))
                   ->get();
         return $result;
     }
@@ -71,5 +74,15 @@ class Reschedule extends Model
                   ->where('id_reschedule', '=', $id)
                   ->update($data);
         return true;
+    }
+
+    public function rescheduleAll()
+    {
+        $result = DB::table('reschedule as r')
+                  ->select('r.*', 'd.nama_pemesan')
+                  ->leftJoin('data_pemesan as d', 'd.nomor_pemesanan', '=', 'r.nomor_pemesanan')
+                //   ->where(array('r.id_pelanggan' => $id))
+                  ->get();
+        return $result;
     }
 }

@@ -29,7 +29,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Lihat Data Pemesanan</h4>
+                <h4 class="card-title">Pemesanan</h4>
               </div>
               <div class="card-content collapse show">
                 <div class="card-body">
@@ -77,15 +77,42 @@
                           <th scope="col">Total</th>
                           <td>{{ $pemesanan->total }}</td>
                         </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  @if(count($datapemesan) > 0)
+                  <h4 class="card-title">Data Pemesanan</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <tbody>
+                        @foreach ($datapemesan as $p)
+                        <tr>
+                          <th scope="col">Nama Pemesan</th>
+                          <th scope="row">{{ $p->nama_pemesan }}</th>
+                        </tr>
 
                         <tr>
-                          <th scope="col">Nama Pembeli</th>
-                          <td>{{ $pemesanan->nama_pelanggan }}</td>
+                          <th scope="col">Alamat Pemesan</th>
+                          <td>{{ $p->alamat }}</td>
+                        </tr>
+
+                        <tr>
+                          <th scope="col">No. hp</th>
+                          <td>{{ $p->hp }}</td>
+                        </tr>
+
+                        <tr>
+                          <th scope="col">Email</th>
+                          <td>{{ $p->email }}</td>
                         </tr>
                         @endforeach
                       </tbody>
                     </table>
                   </div>
+                  @endif
+                  <br>
                   <a href="{{ URl('pemesanan') }}">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                   </a>
@@ -159,6 +186,7 @@
                         <tr>
                           <th>Nama Pemesanan</th>
                           <th>Wisata</th>
+                          <th>KTP/SIM/PASPOR</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -166,6 +194,7 @@
                         <tr>
                           <td>{{ $t_detail->nama_pemesanan }}</td>
                           <td>{{ $t_detail->nama_wisata }}</td>
+                          <td>{{ $t_detail->ktp }}</td>
                         </tr>
                         @endforeach
                       </tbody>

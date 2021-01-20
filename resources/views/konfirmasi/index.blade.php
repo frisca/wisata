@@ -262,7 +262,7 @@
               @endif
             </td>
             <td>
-              <a href="{{ URL('user/konfirmasi/detail/' . $p->nomor_pemesanan) }}">
+              <a href="{{ URL('user/konfirmasi/detail/' . $p->id_pemesanan) }}">
                 <button type="button" class="btn btn-warning">Detail</button>
               </a>
               @if($p->jumlah_bayar == 0 && $p->pembayaran <= 0)
@@ -274,7 +274,7 @@
                 pemesananid="<?php echo $p->id_pemesanan;?>">Upload Bukti Bayar</button>
               @endif 
               @if($p->pembayaran == 2 && $p->jumlah_bayar != 0)
-                @if($p->status_pemesanan == 2 )
+                <!-- @if($p->status_pemesanan == 2 )
                 <button type="button" class="btn btn-danger refund" data-toggle="modal" data-target="#myModalRefund"
                 pemesananid="<?php echo $p->nomor_pemesanan;?>">Refund</button>
                 @endif
@@ -282,7 +282,7 @@
                 <a href="{{ URL('user/reschedule/add/' . $p->nomor_pemesanan) }}">
                   <button type="button" class="btn btn-success">Reschedule</button>
                 </a>
-                @endif
+                @endif -->
               @elseif($p->pembayaran == 1 && $p->status_pemesanan == 1)
                 <button type="button" class="btn btn-primary lunas" data-toggle="modal"  data-target="#myModalLunas"
                 pemesananid="<?php echo $p->id_pemesanan;?>" total="<?php echo ($p->total - $p->jumlah_bayar);?>">Bayar Lunas</button>

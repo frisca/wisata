@@ -29,8 +29,9 @@ class RescheduleUserController extends Controller
 	{
 		$trip = $this->trip->lists();
 		$data = $this->reschedule->rescheduleByIdPelanggan(auth()->user()->id);
+		$tanggalwisata = $this->tanggalwisata->tanggalWisataAll();
 		// var_dump($data);exit();
-		return view('user/reschedule', ['data' => $data, 'trip' => $trip]);
+		return view('user/reschedule', ['data' => $data, 'trip' => $trip, 'tanggalwisata' => $tanggalwisata]);
 	}
 
 	public function add($nomor)
@@ -94,5 +95,16 @@ class RescheduleUserController extends Controller
 	    $data = $this->reschedule->detailById($id);
 	    $trip = $this->trip->lists();
 	    return view('user/reschedule_detail', ['data' => $data, 'trip' => $trip]);
-	  }
+	}
+
+	public function update(Request $request){
+		$data = array(
+            'status_reschedule' => 1,
+            'new_tgl_wisata' => $request->input('tgl_wisata'),
+            'hp' => $request->input('hp')
+        );
+
+        $result = $this->reschedule->change($request->input('id'), $data);
+        return redirect('user/reschedule')->with('success','Data reschedule berhasil diubah. ');
+	}
 }

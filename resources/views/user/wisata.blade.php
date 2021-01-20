@@ -253,7 +253,7 @@
         <p style="text-align:left; font-size: 18px; color: #000;">
           <b>Pilihan Tanggal: </b><br>
           @foreach($tanggalwisata as $index=>$t_wisata)
-          <input type="radio" name="tgl_wisata" value="{{ $t_wisata->id_tanggal }}"> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
+          <input type="radio" name="tgl_wisata" value="{{ $t_wisata->id_tanggal }}" required> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
           @endforeach
         </p>
         @if(count($tanggalwisata) > 0)

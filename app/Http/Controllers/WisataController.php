@@ -10,6 +10,7 @@ use App\Models\Wisata;
 use App\Models\Trip;
 use App\Models\Lokasi;
 use App\Models\Fasilitas;
+use Response;
 
 class WisataController extends Controller
 {
@@ -152,4 +153,9 @@ class WisataController extends Controller
         $result = $this->wisata->change($id, $data);
         return redirect('wisata')->with('success','Data wisata berhasil dihapus. ');
     }
+
+    public function wisataByTrip($id) {
+        $data = $this->wisata->wisataByTrip($id);
+		return Response::json($data);
+	}
 }

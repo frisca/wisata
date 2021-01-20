@@ -39,15 +39,17 @@
                     <input type="hidden" class="form-control" name="id_tanggal" value="{{ $tglWisata->id_tanggal }}">
                     <fieldset class="form-group">
                       <label>Dari Tanggal</label>
-                      <input type="text" class="form-control" id="dari_tanggal" name="dari_tanggal" placeholder="Example: 2020-12-01" value="{{ $tglWisata->dari_tanggal }}">
+                      <input type="text" class="form-control" id="dari_tanggal" name="dari_tanggal" placeholder="Example: 2020-12-01" value="{{ $tglWisata->dari_tanggal }}"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Sampai Tanggal</label>
-                      <input type="text" class="form-control" id="sampai_tanggal" name="sampai_tanggal" placeholder="Example: 2020-12-01" value="{{ $tglWisata->sampai_tanggal }}">
+                      <input type="text" class="form-control" id="sampai_tanggal" name="sampai_tanggal" placeholder="Example: 2020-12-01" value="{{ $tglWisata->sampai_tanggal }}"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Wisata</label>
-                      <select class="form-control" id="wisata" name="id_wisata">
+                      <select class="form-control" id="wisata" name="id_wisata" required>
                         <option value="">Pilih Wisata</option>
                         @foreach($listWisata as $wisata)
                           @if($wisata->id_wisata == $tglWisata->id_wisata)

@@ -28,13 +28,13 @@ class AboutUsController extends Controller
     
 	public function index()
 	{
-    $trip = $this->trip->lists();
+    $trip = $this->trip->trips();
 		return view('about_us', ['trip' => $trip]);
 	}
 
   public function about()
   {
-    $trip = $this->trip->lists();
+    $trip = $this->trip->trips();
     return view('user/about_us', ['trip' => $trip]);
   }
 }

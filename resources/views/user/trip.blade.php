@@ -221,32 +221,40 @@
   </nav>
 
   <div class="row" style="margin-top: 25px; margin-bottom: 15px;">
-    @foreach($data as $v_wisata)
-    <div class="col-xs-6 col-md-4">
-      <div class="thumbnail">
-        <img src="{{ asset('images/' . $v_wisata->image) }}" alt="{{ $v_wisata->nama_wisata }}, {{ $v_wisata->lokasi }}" style="width: 345px; height: 215px;">
-        <div class="caption">
-          <p style="text-align: center;font-size: 20px;color: #0000FF;font-family: serif;">
-            <a href="{{ URL('user/wisata/' . $v_wisata->id_wisata) }}"> 
-              <b>{{ $v_wisata->nama_wisata }}</b>
-            </a>
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i> {{ $v_wisata->lokasi }}
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-time" aria-hidden="true"></i> {{ strtoupper($v_wisata->waktu) }}
-          </p>
-          <p style="text-align: left;color: #000;">
-            <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Max. {{ strtoupper($v_wisata->jumlah_orang) }} orang
-          </p>
-          <p style="color: #000;">
-            <b>IDR {{ number_format($v_wisata->harga , 0, ".", ".") }} / pax</b>
-          </p>
+  @if(count($data) <= 0)
+    <div class="col-xs-6 col-md-4" style="margin-bottom:25px;">
+      <p>
+        <h3>Tidak tersedia.</h3>
+      </p>
+    </div>
+    @else
+      @foreach($data as $v_wisata)
+      <div class="col-xs-6 col-md-4">
+        <div class="thumbnail">
+          <img src="{{ asset('images/' . $v_wisata->image) }}" alt="{{ $v_wisata->nama_wisata }}, {{ $v_wisata->lokasi }}" style="width: 345px; height: 215px;">
+          <div class="caption">
+            <p style="text-align: center;font-size: 20px;color: #0000FF;font-family: serif;">
+              <a href="{{ URL('user/wisata/' . $v_wisata->id_wisata) }}"> 
+                <b>{{ $v_wisata->nama_wisata }}</b>
+              </a>
+            </p>
+            <p style="text-align: left;color: #000;">
+              <i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i> {{ $v_wisata->lokasi }}
+            </p>
+            <p style="text-align: left;color: #000;">
+              <i class="glyphicon glyphicon-time" aria-hidden="true"></i> {{ strtoupper($v_wisata->waktu) }}
+            </p>
+            <p style="text-align: left;color: #000;">
+              <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Max. {{ strtoupper($v_wisata->jumlah_orang) }} orang
+            </p>
+            <p style="color: #000;">
+              <b>IDR {{ number_format($v_wisata->harga , 0, ".", ".") }} / pax</b>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    @endforeach
+      @endforeach
+    @endif
   </div>
 
   <footer class="footer-section">

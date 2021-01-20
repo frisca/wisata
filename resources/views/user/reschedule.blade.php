@@ -222,46 +222,76 @@
 
   <div class="container">
     <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
-      <table id="example" class="table table-striped table-bordered table-hover" style="width: 97.5%;">
-        <thead>
+    @foreach($data as $p)
+    <table class="table" style="width: 97.5%;border:none;">
+    <form method="post" action="{{ URL('user/reschedule/update') }}">
+      {{ csrf_field() }}
+      <tbody>
+        <input type="hidden" value="{{ $p->id_reschedule }}" name="id">
+        <tr>
+          <td>Nomor Pemesan</td>
+          <td><input type="text" value="{{ $p->nomor_pemesanan }}" class="form-control" disabled></td>
+        </tr>
+        <tr>
+          <td>Nama Pemesan</td>
+          <td><input type="text" value="{{ $p->nama_pemesan }}" class="form-control" disabled></td>
+        </tr>
+        <tr>
+          <td>Nama Paket Wisata</td>
+          <td><input type="text" value="{{ $p->nama_wisata }}" class="form-control" disabled></td>
+        </tr>
+        <tr>
+          <td>No. Telp</td>
+          <td><input type="text" value="{{ $p->hp }}" class="form-control" name="hp" required></td>
+        </tr>
+        <tr>
+          <td>Tanggal Awal</td>
+          <td><input type="text" value="{{ $p->from_tgl_wisata }}  -  {{ $p->to_tgl_wisata}}" name="from_tgl_wisata" class="form-control"></td>
+        </tr>
+        <tr>
+          <td>Tanggal Reschedule</td>
+          <td>
+            <!-- <b>Pilihan Tanggal: </b><br> -->
+            @foreach($tanggalwisata as $index=>$t_wisata)
+            @if($t_wisata->id_wisata == $p->id_wisata)
+            <?php $tamp = ""; $tamp = $t_wisata->dari_tanggal . ' - ' . $t_wisata->sampai_tanggal;?>
+            @if($tamp == $p->new_tgl_wisata)
+            <input type="radio" name="tgl_wisata" value="{{ $t_wisata->dari_tanggal }} - {{$t_wisata->sampai_tanggal}}" 
+            checked="true"> {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
+            @else
+            <input type="radio" name="tgl_wisata" value="{{ $t_wisata->dari_tanggal }} - {{$t_wisata->sampai_tanggal}}" 
+            > {{ date('d M Y', strtotime($t_wisata->dari_tanggal)) }} - {{ date('d M Y', strtotime($t_wisata->sampai_tanggal)) }}<br>
+            @endif
+            @endif
+            @endforeach
+          </td>
+        </tr>
+        @if($p->status_reschedule == 1)
+        <tr>
+          <td>Status</td>
+          <td>
+          @if($p->status_approve == 1)
+            Disetujui
+          @elseif($p->status_approve == 2)
+            Ditolak
+          @elseif($p->status_approve == 0)
+            Belum Diproses
+          @endif
+          </td>
+        </tr>
+        @elseif($p->status_reschedule == 0 && ($p->status_approve == 0 || $p->status_approve == 2))
           <tr>
-            <th>Nomor Pemesanan</th>
-            <th>Nama Paket Wisata</th>
-            <th>Tanggal Awal</th>
-            <th>Tanggal Reschedule</th>
-            <th>Harga</th>
-            <th>Total Reschedule</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($data as $p)
-          <tr>
-            <td>{{ $p->nomor_pemesanan }}</td>
-            <td>{{ $p->nama_wisata }}</td>
-            <td>{{ date('d-M-Y', strtotime($p->dari_tgl_wisata)) }} -{{ date('d-M-Y', strtotime($p->sampai_tgl_wisata)) }} </td>
-            <td>{{ date('d-M-Y', strtotime($p->dari)) }} - {{ date('d-M-Y', strtotime($p->sampai)) }}</td>
-            <td>IDR {{ number_format($p->total_sebelum, 0, '.', '.') }}</td>
-            <td>IDR {{ number_format($p->total_reschedule, 0, '.', '.') }}</td>
-            <td>
-              @if($p->status_approve == 1)
-                Disetujui
-              @elseif($p->status_approve == 2)
-                Ditolak
-              @else
-                Diproses
-              @endif
-            </td>
-            <td>
-              <a href="{{ URL('user/reschedule/detail/' . $p->id_reschedule) }}">
-                <button type="button" class="btn btn-warning">Detail</button>
-              </a>
+            <td colspan="2">
+              <button type="submit" class="btn btn-primary">Submit</button>
             </td>
           </tr>
-          @endforeach
-        </tbody>
-      </table>
+        @endif
+      </tbody>
+    </form>
+    </table>
+    <br>
+    <br>
+    @endforeach
     </div>
   </div>
 

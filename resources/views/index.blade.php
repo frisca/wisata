@@ -219,7 +219,7 @@
       {{ csrf_field() }}
       <div class="col-md-5">
         <label for="trip">Pilih Kategori</label>
-        <select id="trip" class="form-control" name="id_trip">
+        <select id="trip" class="form-control trip" name="id_trip">
           <option value="">Semua Kategori</option>
           @foreach($trip as $v_trip)
             <option value="{{ $v_trip->id_trip }}">{{ $v_trip->trip }}</option>
@@ -228,11 +228,11 @@
       </div>
       <div class="col-md-5">
         <label for="lokasi">Pilih Destinasi</label>
-        <select id="lokasi" class="form-control" name="id_lokasi">
+        <select id="lokasi" class="form-control lokasi" name="id_lokasi">
           <option value="">Semua Destinasi</option>
-          @foreach($lokasi as $v_lokasi)
-          <option value="{{ $v_lokasi->id_lokasi }}">{{ $v_lokasi->lokasi }}</option>
-          @endforeach
+          <!-- @foreach($lokasi as $v_lokasi) -->
+          <!-- <option value="{{ $v_lokasi->id_lokasi }}">{{ $v_lokasi->lokasi }}</option> -->
+          <!-- @endforeach -->
         </select>
       </div>
       <div class="col-md-2">
@@ -355,6 +355,35 @@
       </div>
   </footer>
 </div>
-
 </body>
+<script>
+  $( ".trip" ).change(function() {
+    var id = $(this).val();
+    $('.lokasi').empty();
+    // console.log(id);
+    if(id == ''){
+      $('<option>', {value: '', text: 'Semua Destinasi'}).prependTo($('.lokasi'));
+      $(".lokasi").val($(".lokasi option:first").val());
+    }else{
+      $.ajax({
+          type: "GET",
+          url: "{{ URL('wisata/trip/') }}" + "/" + id,
+          dataType: 'json',
+          success: function (data) {
+            $.each(data, function (i, item) {
+                $('.lokasi').prepend($('<option>', { 
+                    value: item.id_lokasi,
+                    text : item.lokasi
+                }));
+            });
+            $('<option>', {value: '', text: 'Semua Destinasi'}).prependTo($('.lokasi'));
+            $(".lokasi").val($(".lokasi option:first").val());
+          },
+          error: function (data) {
+              console.log(data);
+          }
+      });
+    }
+  });
+</script>
 </html>

@@ -19,7 +19,7 @@ class RefundController extends Controller
     
 	public function index()
 	{
-		$data = $this->refund->lists();
+		$data = $this->refund->refundAll();
 		return view('refund/index', ['data' => $data]);
 	}
 

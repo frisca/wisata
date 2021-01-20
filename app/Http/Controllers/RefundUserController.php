@@ -51,6 +51,7 @@ class RefundUserController extends Controller
 		}
 
 		$pemesanan = $this->pemesanan->detail($request->input('nomor_pemesanan'));
+		
 		foreach ($pemesanan as $key => $value) {
 			$data = array(
 				'total_sebelum' => $value->total,
@@ -67,9 +68,10 @@ class RefundUserController extends Controller
 				'sampai_tgl_wisata' => $to,
 				'status_approve' => 0
 			);
+			// var_dump($data);exit();
 		}
 
-		$res = $this->refund->store($data);
+		// $res = $this->refund->store($data);
 
 		$datas = array(
 			'status_pemesanan' => 3
@@ -85,5 +87,16 @@ class RefundUserController extends Controller
 	    $data = $this->refund->detailById($id);
 	    $trip = $this->trip->lists();
 	    return view('user/refund_detail', ['data' => $data, 'trip' => $trip]);
-	  }
+	}
+
+	public function update(Request $request){
+		$data = array(
+            'status_refund' => 1,
+            'rek' => $request->input('rek'),
+            'hp' => $request->input('hp')
+        );
+
+        $result = $this->refund->change($request->input('id'), $data);
+        return redirect('user/refund')->with('success','Data refund berhasil diubah. ');
+	}
 }

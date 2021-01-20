@@ -53,8 +53,10 @@ class Refund extends Model
 
     public function refundByIdPelanggan($id)
     {
-        $result = DB::table('refund')
-                  ->where(array('id_pelanggan' => $id))
+        $result = DB::table('refund as r')
+                 ->select('r.*', 'd.nama_pemesan')
+                 ->leftJoin('data_pemesan as d', 'd.nomor_pemesanan', '=', 'r.nomor_pemesanan')
+                  ->where(array('r.id_pelanggan' => $id))
                   ->get();
         return $result;
     }
@@ -72,5 +74,15 @@ class Refund extends Model
                   ->where('id_refund', '=', $id)
                   ->update($data);
         return true;
+    }
+
+    public function refundAll()
+    {
+        $result = DB::table('refund as r')
+                 ->select('r.*', 'd.nama_pemesan')
+                 ->leftJoin('data_pemesan as d', 'd.nomor_pemesanan', '=', 'r.nomor_pemesanan')
+                //   ->where(array('r.id_pelanggan' => $id))
+                  ->get();
+        return $result;
     }
 }

@@ -70,4 +70,13 @@ class TanggalWisata extends Model
                   ->get();
         return $result;
     }
+
+    public function tanggalWisataAll()
+    {
+        $result = DB::table('tanggal_wisata as f')
+                  ->join('paket_wisata as k', 'k.id_wisata', '=', 'f.id_wisata')
+                  ->where(array('f.status_delete' => 0))
+                  ->get();
+        return $result;
+    }
 }

@@ -222,8 +222,8 @@
 
   <div class="container">
     <div class="row" style="margin-top: 0px; margin-bottom: 20px;">
-    <div>
-      <h3>Pemesanan Detail</h3>
+    <div class="col-md-12">
+      <h3>Pemesanan</h3>
       @foreach($data as $p)
         <div class="col-md-6">
           <label>Nomor Pemesanan</label>
@@ -268,11 +268,6 @@
         </div>
 
         <div class="col-md-6">
-          <label>Nama Pelanggan</label>
-          <p>{{ $p->nama_pelanggan }}</p>
-        </div>
-
-        <div class="col-md-6">
           <label>Status Approve</label>
           <p>
             @if($p->status_approve == 1)
@@ -282,10 +277,49 @@
             @endif
           </p>
         </div>
+
+        <div class="col-md-6">
+
+        </div>
+
+        <div class="col-md-6">
+
+        </div>
       @endforeach
     </div>
 
-    <div>
+    @if(count($datapemesan) > 0)
+    <div class="col-md-12">
+      <h3>Data Pemesan</h3>
+      @foreach($datapemesan as $d)
+      <div class="col-md-6">
+          <label>Nama Pemesan</label>
+          <p>{{ $d->nama_pemesan }}</p>
+        </div>
+
+        <div class="col-md-6">
+          <label>Alamat Pemesan</label>
+          <p>{{ $d->alamat }}</p>
+        </div>
+
+        <div class="col-md-6">
+          <label>No. HP</label>
+          <p>{{ $d->hp }}</p>
+        </div>
+
+        <div class="col-md-6">
+          <label>Email</label>
+          <p>{{ $d->email }}</p>
+        </div>
+      </div>
+      @endforeach
+    </div>
+    @endif
+
+    <br>
+
+    @if(count($pemesanandetail))
+    <div class="col-md-12">
       <h3>Paket Wisata</h3>
       @foreach($pemesanandetail as $pd)
         <div class="col-md-6">
@@ -320,6 +354,7 @@
       @endforeach
     </div>
   </div>
+  @endif
 
   <footer class="footer-section">
     <div class="container">

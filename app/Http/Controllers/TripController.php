@@ -81,5 +81,7 @@ class TripController extends Controller
 
         $result = $this->trip->change($id, $data);
         return redirect('trip')->with('success','Data trip berhasil dihapus. ');
-    }
+	}
+	
+	
 }

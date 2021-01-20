@@ -19,21 +19,21 @@ class KomentarController extends Controller
     
 	public function index()
 	{
-        $trip = $this->trip->lists();
+        $trip = $this->trip->trips();
         $data = $this->komentar->lists();
 		return view('testimoni', ['trip' => $trip, 'data' => $data]);
 	}
 
     public function testimoni()
     {
-        $trip = $this->trip->lists();
+        $trip = $this->trip->trips();
         $data = $this->komentar->lists();
         return view('user/testimoni', ['trip' => $trip, 'data' => $data]);
     }
 
     public function store(Request $request)
     {
-        $trip = $this->trip->lists();
+        $trip = $this->trip->trips();
         $data = array(
             'isi' => $request->input('isi'),
             'nama_komentar' => auth()->user()->name,

@@ -39,11 +39,11 @@
                       <input type="hidden" class="form-control" name="id_trip" value="{{ $trip->id_trip }}">
                       <fieldset class="form-group">
                         <label>Trip</label>
-                        <input type="text" class="form-control" id="trip" name="trip" value="{{ $trip->trip }}">
+                        <input type="text" class="form-control" id="trip" name="trip" value="{{ $trip->trip }}" required>
                       </fieldset>
                       <fieldset class="form-group">
                         <label>Status</label>
-                        <select class="form-control" id="status_trip" name="status_trip">
+                        <select class="form-control" id="status_trip" name="status_trip" required>
                           <option value="">Pilih Status</option>
                           @if($trip->status_trip == 1)
                             <option value="1" selected>Aktif</option>

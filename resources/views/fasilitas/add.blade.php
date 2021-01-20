@@ -35,10 +35,11 @@
                 <div class="card-body">
                   <form method="post" action="{{ URL('fasilitas/store') }}">
                     {{ csrf_field() }}
-                    <input type="hidden" class="form-control" id="id_wisata" name="id_wisata" value="{{ $id }}">
+                    <input type="hidden" class="form-control" id="id_wisata" name="id_wisata" value="{{ $id }}"
+                    required>
                     <fieldset class="form-group">
                       <label>Kategori Fasilitas</label>
-                      <select class="form-control" id="id_kateg_fasilitas" name="id_kateg_fasilitas">
+                      <select class="form-control" id="id_kateg_fasilitas" name="id_kateg_fasilitas" required>
                         <option value="">Pilih Kategori Fasilitas</option>
                         @foreach($kategories as $kategori)
                         <option value="{{ $kategori->id_kateg_fasilitas }}">{{ $kategori->kategori_wisata }}</option>
@@ -47,11 +48,11 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Deskripsi</label>
-                      <textarea class="form-control" id="konten" rows="3" name="keterangan"></textarea>
+                      <textarea class="form-control" id="konten" rows="3" name="keterangan" required></textarea>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Menggunakan Tiket</label>
-                      <select class="form-control" id="is_tiket" name="is_tiket">
+                      <select class="form-control" id="is_tiket" name="is_tiket" required>
                         <option value="">Pilih Tiket</option>
                         <option value="1">Ya</option>
                         <option value="0">Tidak</option>
@@ -59,7 +60,7 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_fasilitas" name="status_fasilitas">
+                      <select class="form-control" id="status_fasilitas" name="status_fasilitas" required>
                         <option value="">Pilih Status</option>
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>

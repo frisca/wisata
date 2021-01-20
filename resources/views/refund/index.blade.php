@@ -36,54 +36,60 @@
               <div class="card-content collapse show">
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">Nomor Pemesanan</th>
-                          <th scope="col">Total Sebelum Refund</th>
-                          <th scope="col">Total Refund</th>
-                          <th scope="col">Dari Tanggal Wisata</th>
-                          <th scope="col">Sampai Tanggal Wisata</th>
-                          <th>Status</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($data as $refund)
-                          <tr>
-                            <td>{{ $refund->id_refund }}</td>
-                            <td>{{ $refund->nomor_pemesanan }}</td>
-                            <td>{{ $refund->total_sebelum }}</td>
-                            <td>{{ $refund->total_refund }}</td>
-                            <td>{{ $refund->dari_tgl_wisata }}</td>
-                            <td>{{ $refund->sampai_tgl_wisata }}</td>
-                            <td>
-                              @if($refund->status_approve == 1)
-                                Disetujui
-                              @elseif($refund->status_approve == 2)
-                                Ditolak
-                              @elseif($refund->status_approve == 0)
-                                Belum Diproses
-                              @endif
-                            </td>
-                            <td width: 18%>
-                              <a href="{{ URL('refund/detail/' . $refund->nomor_pemesanan) }}">
-                                <button type="button" class="btn btn-icon btn-warning mr-1"><i class="ft-eye"></i></button>
-                              </a>
-                              @if($refund->status_approve == 0)
-                                <a href="{{ URL('refund/approve', $refund->id_refund) }}">
-                                  <button class="btn btn-warning">Approve</button>
-                                </a>
-                                <a href="{{ URL('refund/reject', $refund->id_refund) }}">
-                                  <button class="btn btn-danger">Reject</button>
-                                </a>
-                              @endif
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+                  @foreach($data as $p)
+                  <table class="table" style="width: 97.5%;border:none;">
+                    <tbody>
+                      <input type="hidden" value="{{ $p->id_refund }}" name="id">
+                      <tr>
+                        <td>Nomor Pemesan</td>
+                        <td><input type="text" value="{{ $p->nomor_pemesanan }}" class="form-control" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Nama Pemesan</td>
+                        <td><input type="text" value="{{ $p->nama_pemesan }}" class="form-control" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Nama Paket Wisata</td>
+                        <td><input type="text" value="{{ $p->nama_wisata }}" class="form-control" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Tanggal Pemesanan</td>
+                        <td><input type="text" value="{{ $p->tgl_pemesan }}" class="form-control" disabled></td>
+                      </tr>
+                      <tr>
+                        <td>Total Refund</td>
+                        <td><input type="text" value="{{ $p->total_refund }}" class="form-control" name="hp" required></td>
+                      </tr>
+                      <tr>
+                        <td>Status</td>
+                        <td>
+                        @if($p->status_approve == 1)
+                          Disetujui
+                        @elseif($p->status_approve == 2)
+                          Ditolak
+                        @elseif($p->status_approve == 0)
+                          Belum Diproses
+                        @endif
+                        </td>
+                      </tr>
+
+                      @if($p->status_refund == 1 && $p->status_approve == 0)
+                      <tr>
+                        <td colspan="2">
+                        <a href="{{ URL('refund/approve/' . $p->id_refund) }}">
+                          <button class="btn btn-warning">Approve</button>
+                        </a>
+                        <a href="{{ URL('refund/reject/' . $p->id_refund) }}">
+                          <button class="btn btn-danger">Reject</button>
+                        </a>
+                        </td>
+                      </tr>
+                      @endif
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  @endforeach
                   </div>
                 </div>
               </div>

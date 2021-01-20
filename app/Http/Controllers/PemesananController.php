@@ -36,12 +36,22 @@ class PemesananController extends Controller
 		return view('pemesanan/index', ['data' => $data]);
 	}
 
-	public function detail($nomor)
+	public function detail($id)
 	{
-		$pemesanan = $this->pemesanan->detail($nomor);
-		$pemesanandetails = $this->pemesanandetail->lists($nomor);
-		$tiketpemesanans = $this->tiketpemesanan->lists($nomor);
-		return view('pemesanan/detail', ['pemesanandetail' => $pemesanandetails, 'tiketpemesanan' => $tiketpemesanans, 'data' => $pemesanan]);
+		$pemesanandetail = array();
+		$tiketpemesanans = array();
+		$datapemesan = array();
+		
+		$data = $this->pemesanan->detail($id);
+		// $pemesanandetails = array();
+
+		foreach($data as $k=>$v){
+			$pemesanandetail = $this->pemesanandetail->lists($v->nomor_pemesanan);
+			$tiketpemesanans = $this->tiketpemesanan->lists($v->nomor_pemesanan);
+			$datapemesan = $this->datapemesan->detail($v->nomor_pemesanan);
+		}
+		return view('pemesanan/detail', ['pemesanandetail' => $pemesanandetail,  'tiketpemesanan' => $tiketpemesanans, 'data' => $data,
+		'datapemesan' => $datapemesan]);
 	}
 
 	public function pesan(Request $request, $id){
@@ -56,17 +66,17 @@ class PemesananController extends Controller
 			foreach ($nomr_order as $key => $value) {
 				if($value->nomor_pemesanan != ""){
 					$gnerateNomorOrder = $value->nomor_pemesanan + 1;
-					$nmr_order =  '00' . $gnerateNomorOrder ;
+					$nmr_order =  sprintf('%03d', $gnerateNomorOrder);
 				}
 			}
 		}
 
-		foreach ($nomr_order as $key => $value) {
-			if($value->nomor_pemesanan != ""){
-				$gnerateNomorOrder = $value->nomor_pemesanan + 1;
-				$nmr_order =  '00' . $gnerateNomorOrder ;
-			}
-		}
+		// foreach ($nomr_order as $key => $value) {
+		// 	if($value->nomor_pemesanan != ""){
+		// 		$gnerateNomorOrder = $value->nomor_pemesanan + 1;
+		// 		$nmr_order =  '00' . $gnerateNomorOrder ;
+		// 	}
+		// }
 
 		foreach ($wisata as $keys => $values) {
 			$total = $values->harga;
@@ -88,7 +98,7 @@ class PemesananController extends Controller
 			'id_pelanggan' => auth()->user()->id,
 			'nama_pelanggan' => auth()->user()->name,
 			'status_pemesanan' => 0,
-			'tgl_pemesanan' => date('Y-m-d'),
+			'tgl_pemesanan' => date('Y-m-d H:i:s'),
 			'pembayaran' => 0,
 			'status_delete' => 0,
 			'status_approve' => 0,
@@ -120,9 +130,17 @@ class PemesananController extends Controller
 
 	public function pembayaran($nomor, $id) {
 		$trip = $this->trip->lists();
-		$data = $this->wisata->wisataByTrip($id);
+		$data = $this->wisata->wisataByKonfrimasi($id);
 		$fasilitas = $this->fasilitas->isTiket($id);
-		return view('user/pembayaran', ['nomor_pemesanan' => $nomor, 'trip' => $trip, 'data' => $data, 'id' =>$id, 'fasilitas' => $fasilitas]);
+		$total = 0;
+		
+		foreach($data as $k=>$v){
+			$total = $v->harga;
+			$jumlah_orang = $v->jumlah_orang;
+		}
+
+		return view('user/pembayaran', ['nomor_pemesanan' => $nomor, 'trip' => $trip, 'data' => $data, 'id' =>$id, 'jmlh_fasilitas' => $fasilitas, 
+			'total' => $total, 'jmlh_org' => $jumlah_orang]);
 	}
 
 	public function prosesPembayaran(Request $request, $nomor, $id) {
@@ -150,6 +168,7 @@ class PemesananController extends Controller
 						if($values != ""){
 							$data_tiket = array(
 								'nama_pemesanan' => $values,
+								'ktp' => $request->input('ktp')[$key],
 								'nomor_pemesanan' => $nomor,
 								'status_delete' => 0,
 								'nama_wisata' => $value->nama_wisata,

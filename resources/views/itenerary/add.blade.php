@@ -37,19 +37,19 @@
                     {{ csrf_field() }}
                     <fieldset class="form-group">
                       <label>Hari</label>
-                      <input type="text" class="form-control" id="hari" name="hari">
+                      <input type="text" class="form-control" id="hari" name="hari" required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Tujuan</label>
-                      <input type="text" class="form-control" id="tujuan" name="tujuan">
+                      <input type="text" class="form-control" id="tujuan" name="tujuan" required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Deskripsi</label>
-                      <textarea class="form-control" id="konten" rows="3" name="keterangan"></textarea>
+                      <textarea class="form-control" id="konten" rows="3" name="keterangan" required></textarea>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Wisata</label>
-                      <select class="form-control" id="wisata" name="id_wisata">
+                      <select class="form-control" id="wisata" name="id_wisata" required>
                         <option value="">Pilih Wisata</option>
                         @foreach($listWisata as $wisata)
                         <option value="{{ $wisata->id_wisata }}">{{ $wisata->nama_wisata }}</option>
@@ -58,7 +58,7 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_itenerary" name="status_itenerary">
+                      <select class="form-control" id="status_itenerary" name="status_itenerary" required>
                         <option value="">Pilih Status</option>
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>

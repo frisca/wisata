@@ -39,19 +39,22 @@
                     <input type="hidden" class="form-control" name="id_itenerary" value="{{ $itenerary->id_itenerary }}">
                     <fieldset class="form-group">
                       <label>Hari</label>
-                      <input type="text" class="form-control" id="hari" name="hari" value="{{ $itenerary->hari }}">
+                      <input type="text" class="form-control" id="hari" name="hari" value="{{ $itenerary->hari }}"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Tujuan</label>
-                      <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $itenerary->tujuan }}">
+                      <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ $itenerary->tujuan }}"
+                      required>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Deskripsi</label>
-                      <textarea class="form-control" id="konten" rows="3" name="keterangan">{!! html_entity_decode($itenerary->keterangan) !!}</textarea>
+                      <textarea class="form-control" id="konten" rows="3" name="keterangan"
+                      required>{!! html_entity_decode($itenerary->keterangan) !!}</textarea>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Wisata</label>
-                      <select class="form-control" id="wisata" name="id_wisata">
+                      <select class="form-control" id="wisata" name="id_wisata" required>
                         <option value="">Pilih Wisata</option>
                         @foreach($listWisata as $wisata)
                           @if($wisata->id_wisata == $itenerary->id_wisata)
@@ -64,7 +67,7 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_itenerary" name="status_itenerary">
+                      <select class="form-control" id="status_itenerary" name="status_itenerary" required>
                         <option value="">Pilih Status</option>
                         @if($itenerary->status_itenerary == 1)
                           <option value="1" selected>Aktif</option>

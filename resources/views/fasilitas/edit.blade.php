@@ -40,7 +40,7 @@
                     <input type="hidden" class="form-control" id="id_fasilitas" name="id_fasilitas" value="{{ $fasilitas->id_fasilitas }}">
                     <fieldset class="form-group">
                       <label>Kategori Fasilitas</label>
-                      <select class="form-control" id="id_kateg_fasilitas" name="id_kateg_fasilitas">
+                      <select class="form-control" id="id_kateg_fasilitas" name="id_kateg_fasilitas" required>
                         <option value="">Pilih Kategori Fasilitas</option>
                         @foreach($kategories as $kategori)
                           @if($fasilitas->id_kateg_fasilitas == $kategori->id_kateg_fasilitas)
@@ -53,11 +53,11 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Deskripsi</label>
-                      <textarea class="form-control" id="konten" rows="3" name="keterangan">{!! html_entity_decode($fasilitas->keterangan) !!}</textarea>
+                      <textarea class="form-control" id="konten" rows="3" name="keterangan" required>{!! html_entity_decode($fasilitas->keterangan) !!}</textarea>
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Menggunakan Tiket</label>
-                      <select class="form-control" id="is_tiket" name="is_tiket">
+                      <select class="form-control" id="is_tiket" name="is_tiket" required>
                         <option value="">Pilih Tiket</option>
                         @if($fasilitas->is_tiket == 1)
                           <option value="1" selected>Ya</option>
@@ -70,7 +70,7 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <label>Status</label>
-                      <select class="form-control" id="status_fasilitas" name="status_fasilitas">
+                      <select class="form-control" id="status_fasilitas" name="status_fasilitas" required>
                         <option value="">Pilih Status</option>
                         @if($fasilitas->status_fasilitas == 1)
                           <option value="1" selected>Aktif</option>

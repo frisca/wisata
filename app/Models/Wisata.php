@@ -82,6 +82,8 @@ class Wisata extends Model
                   ->join('trip as t', 't.id_trip', '=', 'p.id_trip')
                   ->join('lokasi as l', 'l.id_lokasi', '=', 'p.id_lokasi')                    
                   ->where('p.id_trip', '=', $id)
+                  ->where(array('p.status_delete' => 0, 'p.status_wisata' => 1, 'l.status_lokasi' => 1, 
+                  'l.status_delete' => 0))
                   ->get();
         return $result;
     }
@@ -108,4 +110,38 @@ class Wisata extends Model
         return $result;
     }
 
+    public function wisataByActive()
+    {
+        $result = DB::table('paket_wisata as p')
+                  ->select('p.*', 'l.*', 't.*')
+                  ->join('trip as t', 't.id_trip', '=', 'p.id_trip')
+                  ->join('lokasi as l', 'l.id_lokasi', '=', 'p.id_lokasi')                    
+                  ->where(array('p.status_delete' => 0, 'p.status_wisata' => 1, 'l.status_lokasi' => 1, 
+                    'l.status_delete' => 0))
+                  ->get();
+        return $result;
+    }
+
+    public function listWisataByNoTripAndLokasi()
+    {
+        $result = DB::table('paket_wisata as p')
+                  ->select('p.*', 'l.*', 't.*')
+                  ->join('trip as t', 't.id_trip', '=', 'p.id_trip')
+                  ->join('lokasi as l', 'l.id_lokasi', '=', 'p.id_lokasi')                    
+                  ->where(array('p.status_delete' => 0, 'p.status_wisata' => 1, 'l.status_lokasi' => 1, 
+                    'l.status_delete' => 0, 't.status_delete' => 0, 't.status_trip' => 1))
+                  ->get();
+        return $result;
+    }
+
+    public function wisataByKonfrimasi($id)
+    {
+        $result = DB::table('paket_wisata as p')
+                  ->select('p.*', 'l.*', 't.*')
+                  ->join('trip as t', 't.id_trip', '=', 'p.id_trip')
+                  ->join('lokasi as l', 'l.id_lokasi', '=', 'p.id_lokasi')                    
+                  ->where('p.id_wisata', '=', $id)
+                  ->get();
+        return $result;
+    }
 }

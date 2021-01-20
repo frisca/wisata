@@ -19,7 +19,7 @@ class RescheduleController extends Controller
     
 	public function index()
 	{
-		$data = $this->reschedule->lists();
+		$data = $this->reschedule->rescheduleAll();
 		return view('reschedule/index', ['data' => $data]);
 	}
 

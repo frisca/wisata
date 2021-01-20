@@ -222,42 +222,62 @@
 
   <div class="container">
     <div class="row" style="margin-top: 20px; margin-bottom: 25px;">
-      <table id="example" class="table table-striped table-bordered table-hover" style="width: 97.5%;">
-        <thead>
-          <tr>
-            <th>Nomor Pemesanan</th>
-            <th>Nama Paket Wisata</th>
-            <th>Harga</th>
-            <th>Total Refund</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
+    @foreach($data as $p)
+      <table class="table" style="width: 97.5%;border:none;">
         <tbody>
-          @foreach($data as $p)
+        <form method="post" action="{{ URL('user/refund/update') }}">
+          {{ csrf_field() }}
+          <input type="hidden" value="{{ $p->id_refund }}" name="id">
           <tr>
-            <td>{{ $p->nomor_pemesanan }}</td>
-            <td>{{ $p->nama_wisata }}</td>
-            <td>IDR {{ number_format($p->total_sebelum, 0, '.', '.') }}</td>
-            <td>IDR {{ number_format($p->total_refund, 0, '.', '.') }}</td>
+            <td>Nomor Pemesan</td>
+            <td><input type="text" value="{{ $p->nomor_pemesanan }}" class="form-control" disabled></td>
+          </tr>
+          <tr>
+            <td>Nama Pemesan</td>
+            <td><input type="text" value="{{ $p->nama_pemesan }}" class="form-control" disabled></td>
+          </tr>
+          <tr>
+            <td>Nama Paket Wisata</td>
+            <td><input type="text" value="{{ $p->nama_wisata }}" class="form-control" disabled></td>
+          </tr>
+          <tr>
+            <td>Tanggal Pemesanan</td>
+            <td><input type="text" value="{{ $p->tgl_pemesan }}" class="form-control" disabled></td>
+          </tr>
+          <tr>
+            <td>Nomor Rekening</td>
+            <td><input type="text" value="{{ $p->rek }}" class="form-control" name="rek" required></td>
+          </tr>
+          <tr>
+            <td>No. Telp</td>
+            <td><input type="text" value="{{ $p->hp }}" class="form-control" name="hp" required></td>
+          </tr>
+          @if($p->status_refund == 1)
+          <tr>
+            <td>Status</td>
             <td>
-              @if($p->status_approve == 1)
-                Disetujui
-              @elseif($p->status_approve == 2)
-                Ditolak
-              @else
-                Diproses
-              @endif
-            </td>
-            <td>
-              <a href="{{ URL('user/refund/detail/' . $p->id_refund) }}">
-                <button type="button" class="btn btn-warning">Detail</button>
-              </a>
+            @if($p->status_approve == 1)
+              Disetujui
+            @elseif($p->status_approve == 2)
+              Ditolak
+            @elseif($p->status_approve == 0)
+              Belum Diproses
+            @endif
             </td>
           </tr>
-          @endforeach
+          @elseif($p->status_refund == 0 && ($p->status_approve == 0 || $p->status_approve == 2))
+          <tr>
+            <td colspan="2">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </td>
+          </tr>
+          @endif
+        </form>
         </tbody>
       </table>
+      <br>
+      <br>
+      @endforeach
     </div>
   </div>
 
