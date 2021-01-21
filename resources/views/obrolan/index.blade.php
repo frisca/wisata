@@ -34,7 +34,7 @@
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
                     <li>
-                      <a href="{{ URL('lokasi/add') }}">Mulai Oborolan</a>
+                      <a href="{{ URL('new/chat') }}">Mulai Oborolan</a>
                     </li>
                   </ul>
                 </div>
@@ -54,40 +54,29 @@
                           <th scope="col">Nama Pengirim</th>
                           <th scope="col">Nama Penerima</th>
                           <th scope="col">Obrolan</th>
-                          <th>Status</th>
-                          <th></th>
+                          <!-- <th>Status</th> -->
+                          <!-- <th></th> -->
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach (array($data) as $p=>$o)
+                        @foreach ($data as $p=>$val)
                         <tr>
-                            <td>
-                                @foreach($users as $k)
-                                    @if($k->id == $o['nama_pengirim'])
-                                    {{ $k->name }}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($users as $k)
-                                    @if($k->id == $o['nama_penerima'])
-                                    {{ $k->name }}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ $o['obrolan'] }}</td>
-                            <td>
-                                @if($o['status']  == 1)
-                                    Sudah Dibaca
-                                @else
-                                    Belum Dibaca
-                                @endif
-                            </td>
-                            <td>
-                            <a href="{{ URL('obrolan/detail/' . $o['nama_penerima'] . '/' . $o['nama_pengirim'])}}">
-                              <button type="button" class="btn btn-icon btn-warning mr-1"><i class="ft-eye"></i></button>
-                            </a>
-                            </td>
+                          @if($val->status_oborolan == 1)
+                            @if($val->nama_pengirim == auth()->user()->name)
+                            <td><a href="{{ URL('add/chat' . '/' . $val->nama_penerima) }}">{{ $val->nama_pengirim }}</a></td>
+                            @else
+                            <td class="pesan"><a href="{{ URL('add/chat'. '/' . $val->nama_pengirim) }}">{{ $val->nama_pengirim }}</a></td>
+                            @endif
+                            <td>{{ $val->oborolan }}</td>
+                          @else
+                          @if($val->nama_pengirim == auth()->user()->name)
+                            <td><a href="{{ URL('update/chat' . '/' . $val->nama_penerima) }}">{{ $val->nama_pengirim }}</a></td>
+                            @else
+                            <td class="pesan"><input type="hidden" name="nama" id="nama" value="{{ $val->id_oborolan }}"><a href="{{ URL('update/chat' . '/' . $val->id_oborolan . '/' . $val->nama_pengirim) }}" style="color: red;">{{ $val->nama_pengirim }}</a></td>
+                            @endif
+                            <td>{{ $val->oborolan }}</td>
+                          @endif
+                          <td>{{ $val->oborolan }}</td>
                         </tr>
                         @endforeach
                       </tbody>

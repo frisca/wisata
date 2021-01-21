@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 20 Jan 2021 pada 18.53
+-- Waktu pembuatan: 21 Jan 2021 pada 01.53
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.9
 
@@ -42,7 +42,8 @@ CREATE TABLE `data_pemesan` (
 
 INSERT INTO `data_pemesan` (`nama_pemesan`, `alamat`, `email`, `nomor_pemesanan`, `hp`, `id_data_pemesan`) VALUES
 ('nila', 'nila3', 'test@gmail.com', '001', '823', 34),
-('ktyi', 'kiyri', 'test@gmail.com', '002', '097', 35);
+('ktyi', 'kiyri', 'test@gmail.com', '002', '097', 35),
+('lkfe', 'fsdfd', 'kl@gmail.com', '004', '023', 36);
 
 -- --------------------------------------------------------
 
@@ -246,11 +247,11 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 
 CREATE TABLE `oborolan` (
   `id_oborolan` int(11) NOT NULL,
-  `nama_pengirim` int(11) NOT NULL,
-  `nama_penerima` int(11) NOT NULL,
   `oborolan` varchar(200) NOT NULL,
   `status_oborolan` int(11) NOT NULL,
-  `tgl_oboralan` date NOT NULL
+  `tgl_oboralan` date NOT NULL,
+  `nama_pengirim` varchar(200) NOT NULL,
+  `nama_penerima` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -353,7 +354,9 @@ CREATE TABLE `pemesanan` (
 
 INSERT INTO `pemesanan` (`nomor_pemesanan`, `status_pemesanan`, `tgl_pemesanan`, `total`, `pembayaran`, `bukti_pembayaran`, `tgl_wisata`, `status_delete`, `id_pelanggan`, `nama_pelanggan`, `status_approve`, `jumlah_bayar`, `status`, `id_pemesanan`) VALUES
 ('001', 2, '2021-01-20 00:00:00', 1800000, 2, '1611158035.png', NULL, 0, 6, 'Ani', 2, 540000, 0, 48),
-('002', 2, '2021-01-20 23:52:22', 1950000, 2, '1611161592.jpeg', NULL, 0, 6, 'Ani', 2, 585000, 0, 49);
+('002', 2, '2021-01-18 23:52:22', 1950000, 1, '1611161592.jpeg', NULL, 0, 6, 'Ani', 2, 585000, 0, 49),
+('003', 0, '2021-01-21 01:03:44', 1800000, 0, NULL, NULL, 0, 6, 'Ani', 0, NULL, 0, 50),
+('004', 0, '2021-01-19 01:18:25', 5400000, 1, '1611166755.jpeg', NULL, 0, 6, 'Ani', 0, 1620000, 0, 51);
 
 -- --------------------------------------------------------
 
@@ -381,7 +384,9 @@ CREATE TABLE `pemesanan_detail` (
 
 INSERT INTO `pemesanan_detail` (`id_pemesanan_detail`, `nama_wisata`, `jumlah`, `nomor_pemesanan`, `lokasi`, `trip`, `waktu`, `status_delete`, `id_wisata`, `dari_tgl_wisata`, `sampai_tgl_wisata`) VALUES
 (86, 'Malaysia', 1800000, '001', 'Malaysia', 'International Trip', '3D2N', 0, 8, '2021-02-07', '2021-02-09'),
-(87, 'Thailand', 1950000, '002', 'Thailand', 'International Trip', '3D2N', 0, 9, '2021-05-10', '2021-05-13');
+(87, 'Thailand', 1950000, '002', 'Thailand', 'International Trip', '3D2N', 0, 9, '2021-05-10', '2021-05-13'),
+(88, 'Malaysia', 1800000, '003', 'Malaysia', 'International Trip', '3D2N', 0, 8, '2021-02-07', '2021-02-09'),
+(89, 'Thailand, Malaysia, Singapore', 5400000, '004', 'Thai,SG,KL', 'International Trip', '6D5N', 0, 11, '2021-10-01', '2021-10-06');
 
 -- --------------------------------------------------------
 
@@ -416,7 +421,8 @@ CREATE TABLE `refund` (
 
 INSERT INTO `refund` (`nomor_pemesanan`, `total_sebelum`, `total_refund`, `nama_pelanggan`, `waktu`, `lokasi`, `trip`, `status_approve`, `dari_tgl_wisata`, `sampai_tgl_wisata`, `nama_wisata`, `id_pelanggan`, `tgl_refund`, `id_refund`, `tgl_pemesan`, `status_refund`, `rek`, `hp`) VALUES
 ('001', 1800000, 450000, 'nila', '3D2N', 'Malaysia', 'International Trip', 1, '2021-09-10', '2021-08-09', 'Malaysia', 6, '2021-01-20', 2, '2021-01-20 00:00:00', 1, '8798', '076'),
-('002', 1950000, 487500, 'ktyi', '3D2N', 'Thailand', 'International Trip', 2, '2021-05-10', '2021-05-13', 'Thailand', 6, '2021-01-20', 7, '2021-01-20 23:52:22', 1, '54545', '98867');
+('002', 1950000, 487500, 'ktyi', '3D2N', 'Thailand', 'International Trip', 2, '2021-05-10', '2021-05-13', 'Thailand', 6, '2021-01-20', 7, '2021-01-20 23:52:22', 1, '54545', '98867'),
+('004', 5400000, 1350000, 'lkfe', '6D5N', 'Thai,SG,KL', 'International Trip', 0, '2021-10-01', '2021-10-06', 'Thailand, Malaysia, Singapore', 6, '2021-01-21', 8, '2021-01-21 01:18:25', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -448,7 +454,8 @@ CREATE TABLE `reschedule` (
 
 INSERT INTO `reschedule` (`id_reschedule`, `nomor_pemesanan`, `total_sebelum`, `total_reschedule`, `status_delete`, `from_tgl_wisata`, `id_pelanggan`, `to_tgl_wisata`, `new_tgl_wisata`, `nama_pelanggan`, `nama_wisata`, `lokasi`, `status_approve`, `status_reschedule`, `hp`) VALUES
 (1, 1, 1800000, 1800000, 0, '2021-09-10', 6, '2021-08-09', '2021-02-07 - 2021-02-09', 'nila', 'Malaysia', 'Malaysia', 2, 1, '9232'),
-(2, 2, 1950000, 1950000, 0, '2021-05-10', 6, '2021-05-13', NULL, 'ktyi', 'Thailand', 'Thailand', 0, 0, NULL);
+(2, 2, 1950000, 1950000, 0, '2021-05-10', 6, '2021-05-13', NULL, 'ktyi', 'Thailand', 'Thailand', 0, 0, NULL),
+(3, 4, 5400000, 5400000, 0, '2021-10-01', 6, '2021-10-06', NULL, 'lkfe', 'Thailand, Malaysia, Singapore', 'Thai,SG,KL', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -600,9 +607,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `activation_code`, `active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, 'Ani', 'opam.qweiop@gmail.com', '$2b$10$bDnIPjxBp.ScsKGutDg61uWA5GirxYRQcWZhB7087twzzwsYD4N0O', '', 1, 'oOz0uXhMswez9nubDAVzbrbtQz0bCA7JSXNlmrvDb284bxds9IKW16Xnx99g', '2015-07-19 14:12:20', '2015-07-19 14:13:10'),
+(6, 'Ani', 'opam.qweiop@gmail.com', '$2b$10$bDnIPjxBp.ScsKGutDg61uWA5GirxYRQcWZhB7087twzzwsYD4N0O', '', 1, 'wYlSCSM15iR50dvDIukXQ8jdsNLD1dn8N9izFmSexcvtfn9lvcvZWfdfEsKQ', '2015-07-19 14:12:20', '2015-07-19 14:13:10'),
 (7, 'Admin', 'admin@gmail.com', '$2y$10$qhtL.SNj9beiX46VLG3Li.ENIis1tmtxAf8.5n5pOFpnl9hLnspUC', '1', 1, 'BwCLmFybKcw6aqpffwMH0qlntpSgxXnyGQIw7Ehjgb6EDkX0ziHRtFZfu5CT', '2021-01-10 14:04:39', '2021-01-11 14:04:44'),
-(8, 'test', 'test@gmail.com', '$2y$10$I/xVrN52VrhDeFM6TYFlAe0AdK5EZO6IkAWGuvl4U8DTmQld5Kusu', '2', 1, '2aIg7vjXtMAkk1kCmzlzrSABJi4yblcv2CQonl82JhJtzz74gjLa1jwKyHLm', '2021-01-10 07:15:11', '2021-01-10 07:15:11'),
+(8, 'test', 'test@gmail.com', '$2y$10$I/xVrN52VrhDeFM6TYFlAe0AdK5EZO6IkAWGuvl4U8DTmQld5Kusu', '2', 1, 'R3nzgF5qSw8biecxARitYReKc8klXwoRpUCiFr6tTBRdi20YLJhIgV5sGgVp', '2021-01-10 07:15:11', '2021-01-10 07:15:11'),
 (12, 'nani', 'nani.com', '$2y$10$5T9KIwWxH7Bzr0Gxf8JaMe9h4y3lBm3N7GFsKwHl1cLguf9fWZtvu', '2', 1, NULL, '2021-01-19 05:40:16', '2021-01-19 05:40:16'),
 (16, 'nani', 'nanii.com', '$2y$10$Cwow3embQHjjWfeE8wEO9uFcsfPCgNTTcSuFdPBajb3Ml8y8qqGsi', '2', 1, NULL, '2021-01-19 05:41:17', '2021-01-19 05:41:17'),
 (17, 'budi', 'budi.com', '$2y$10$bcgwYVbXeooW9pyUJquhG.lLOwXmErYs19bl19oat0YxJcZwO6tiW', '2', 1, NULL, '2021-01-19 05:43:39', '2021-01-19 05:43:39'),
@@ -656,7 +663,9 @@ ALTER TABLE `lokasi`
 -- Indeks untuk tabel `oborolan`
 --
 ALTER TABLE `oborolan`
-  ADD PRIMARY KEY (`id_oborolan`);
+  ADD PRIMARY KEY (`id_oborolan`),
+  ADD KEY `nama_pengirim` (`nama_pengirim`),
+  ADD KEY `nama_penerima` (`nama_penerima`);
 
 --
 -- Indeks untuk tabel `paket_wisata`
@@ -746,7 +755,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `data_pemesan`
 --
 ALTER TABLE `data_pemesan`
-  MODIFY `id_data_pemesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_data_pemesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `fasilitas`
@@ -782,7 +791,7 @@ ALTER TABLE `lokasi`
 -- AUTO_INCREMENT untuk tabel `oborolan`
 --
 ALTER TABLE `oborolan`
-  MODIFY `id_oborolan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_oborolan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `paket_wisata`
@@ -800,25 +809,25 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT untuk tabel `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_pemesanan` bigint(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemesanan_detail`
 --
 ALTER TABLE `pemesanan_detail`
-  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_pemesanan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT untuk tabel `refund`
 --
 ALTER TABLE `refund`
-  MODIFY `id_refund` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_refund` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `reschedule`
 --
 ALTER TABLE `reschedule`
-  MODIFY `id_reschedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_reschedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `reschedule_detail`

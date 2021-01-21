@@ -26,24 +26,16 @@
       <div class="content-body">
         <!-- Striped rows start -->
         <div class="card mb-3">
-          <div class="card-header">
-            {{ str_replace('%20',' ',$nama) }}
-          </div>
-          <div class="card-body">
-            <input type="hidden" name="nama" id="sender" value="{{ auth()->user()->name }}">
-            <div class="col-sm-6 form-group">
-              <div id="demos"></div>
+            <div class="card-header">
+              <i class="fa fa-envelope"></i> Chat Baru
             </div>
-            <input type="hidden" name="nama_penerima" id="receiver" value="{{ str_replace('_', '%', $namas) }}">
-            <div class="col-sm-6 form-group">
-              <label>Pesan</label>
-              <textarea class="form-control" style="height: 100px;" name="oborolan" id="oborolan"></textarea>
-            </div>
-            <div class="col-sm-3">
-              <button class="btn btn-primary" onclick="loadDoc()">Kirim</button> <a href="{{ URL('obrolan') }}"><button class="btn btn-success">Kembali</button></a>
+            <div class="card-body">
+              <p>Pilih teman untuk chat</p>
+              <?php foreach($user as $val){ ?>
+              <div><a href="{{ URL('add/chat/'.$val->name) }}"> {{ $val->name }}</a></div>
+              <?php } ?>
             </div>
           </div>
-        </div>
         <!-- Striped rows end -->
       </div>
       </form>

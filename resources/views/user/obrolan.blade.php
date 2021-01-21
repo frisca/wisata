@@ -178,27 +178,6 @@
       font-family: serif;
       font-size: 17px;
     }
-
-    a.list-group-item {
-        height:auto;
-        min-height:220px;
-    }
-    a.list-group-item.active small {
-        color:#fff;
-    }
-    .stars {
-        margin:20px auto 1px;    
-    }
-
-    .well {
-      min-height: 0px;
-      padding: 0px;
-      margin-bottom: 20px;
-      border: none;
-      border-radius: 4px;
-      -webkit-box-shadow: none;
-      background-color: #E6E6FA;
-    }
   </style>
 </head>
 <body style="background-color: #E6E6FA;">
@@ -246,38 +225,69 @@
     </div>
   </nav>
 
-  <div class="container" style="margin-bottom: 15px;">
-    <div class="row">
-      <div class="well" style="width: 97.5%;">
-        <h2 class="text-left">Komentar</h2>
-        <form method="post" action="{{ URL('user/testimoni/store') }}">
-          {{ csrf_field() }}
-          <div class="form-group">
-            <textarea id="message" name="isi" class="form-control" rows="5" placeholder="Tulis Komentar" required></textarea>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Komentar</button>
-          </div>
-        </form>
-        <div class="list-group" style="margin-top: 50px;">
-          @foreach($data as $k)
-          <a href="#" class="list-group-item">
-            <div class="media col-md-3">
-              <figure class="pull-left">
-                <img class="media-object img-rounded img-responsive" src="{{ asset('images/user.png') }}" alt="{{ $k->nama_komentar }}" style="margin-top: 15px;">
-              </figure>
+  <div class="container">
+    <div class="row" style="margin-top: 0px; margin-bottom: 20px;">
+        <div class="col-md-12" style="margin-left: -17px;">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Daftar Data Oborolan</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    <li>
+                      <a href="{{ URL('user/new/chat') }}">Mulai Oborolan</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card-content collapse show">
+                <div class="card-body">
+                  @if ($message = Session::get('success'))
+                  <div class="alert alert-success" style="height: 50px;">
+                    <p>{{ $message }}</p>
+                  </div>
+                  @endif
+                  <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nama Pengirim</th>
+                          <th scope="col">Nama Penerima</th>
+                          <th scope="col">Obrolan</th>
+                          <!-- <th>Status</th> -->
+                          <!-- <th></th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($data as $p=>$val)
+                        <tr>
+                          @if($val->status_oborolan == 1)
+                            @if($val->nama_pengirim == auth()->user()->name)
+                            <td><a href="{{ URL('user/add/chat' . '/' . $val->nama_penerima) }}">{{ $val->nama_pengirim }}</a></td>
+                            @else
+                            <td class="pesan"><a href="{{ URL('user/add/chat'. '/' . $val->nama_pengirim) }}">{{ $val->nama_pengirim }}</a></td>
+                            @endif
+                            <td>{{ $val->oborolan }}</td>
+                          @else
+                          @if($val->nama_pengirim == auth()->user()->name)
+                            <td><a href="{{ URL('user/update/chat' . '/' . $val->nama_penerima) }}">{{ $val->nama_pengirim }}</a></td>
+                            @else
+                            <td class="pesan"><input type="hidden" name="nama" id="nama" value="{{ $val->id_oborolan }}"><a href="{{ URL('user/update/chat' . '/' . $val->id_oborolan . '/' . $val->nama_pengirim) }}" style="color: red;">{{ $val->nama_pengirim }}</a></td>
+                            @endif
+                            <td>{{ $val->oborolan }}</td>
+                          @endif
+                          <td>{{ $val->oborolan }}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-9" style="margin-top: 15px;">
-              <h4 class="list-group-item-heading"> {{ $k->nama_komentar }} </h4>
-              <span style="font-size: 11px;"><b>{{ date('d-m-Y', strtotime($k->tgl_komentar)) }}</b></span>
-              <p class="list-group-item-text" style="margin-top: 10px;"> 
-              {{ $k->isi }}                        
-              </p>
-            </div>
-          </a>
-          @endforeach
+          </div>
         </div>
-      </div>
     </div>
-  </div>
+  <!-- </div> -->
 @extends('user/footer')

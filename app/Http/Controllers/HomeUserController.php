@@ -42,12 +42,13 @@ class HomeUserController extends Controller
 		// var_dump($pemesanan);exit();
 		$date = Carbon::now();
 		$date = $date->toDateString();
+		
 
 		if(count($pemesanan) > 0) {
 			foreach($pemesanan as $v) {
 				$newTime = date('d-m-Y', strtotime($v->tgl_pemesanan.' + 3 days'));
 				$newDate = date('Y-m-d', strtotime($newTime));
-
+				
 				if($newDate == $date) {
 					$exist = 1;
 				}

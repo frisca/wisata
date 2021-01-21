@@ -24,6 +24,23 @@
     <!-- BEGIN PAGE LEVEL JS-->
     <!-- END PAGE LEVEL JS-->
     <script type="text/javascript">
+      function loadDoc() {
+        var oborolan = $('#oborolan').val();
+        var sender = $('#sender').val();
+        
+        var receiver = $('#receiver').val();
+        console.log(receiver);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            document.getElementById("demo").innerHTML =
+            xhttp.responseText;
+          }
+        };
+        xhttp.open("GET", "{{ URL('send') }}?sender="+sender+"&oborolan="+oborolan+'&receiver='+receiver, true);
+        xhttp.send();
+        $('#oborolan').val("");
+      }
       $(document).ready(function(){
         $("li.nav-item").on('click', function(e){
           // console.log(e.target, new Date().toString());
@@ -41,6 +58,12 @@
           language:'en-gb'
         });
         CKEDITOR.config.allowedContent = true;
+        
+        var sender = $('#sender').val();   
+        var receiver = $('#receiver').val();
+        console.log(sender, receiver);
+        $.ajaxSetup({cache:false});
+        setInterval(function(){$('#demos').load("{{ URL('message') }}" + "?sender="+sender+"&receiver="+receiver);}, 2000);
       });
     </script>
   </body>

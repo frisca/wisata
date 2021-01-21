@@ -162,3 +162,22 @@ Route::get('refund/reject/{id}', 'RefundController@reject');
 
 Route::get('reschedule/approve/{id}', 'RescheduleController@approve');
 Route::get('reschedule/reject/{id}', 'RescheduleController@reject');
+
+Route::get('update/chat/{id}/{nama}', 'ObrolanController@updatechat');
+Route::get('message', 'ObrolanController@message');
+Route::get('send', 'ObrolanController@send');
+
+Route::get('add/chat/{nama}', 'ObrolanController@addchat');
+Route::get('new/chat', 'ObrolanController@newchat');
+
+
+Route::get('user/chat', 'ObrolanController@indexUser');
+Route::get('user/chat/detail/{id}/{id1}', 'ObrolanController@detailUser');
+Route::get('user/chat/store/{id}', 'ObrolanController@storeUser');
+
+Route::get('user/update/chat/{id}/{nama}', 'ObrolanController@updatechatUser');
+Route::get('user/message', 'ObrolanController@messageUser');
+Route::get('user/send', 'ObrolanController@sendUser');
+
+Route::get('user/add/chat/{nama}', 'ObrolanController@addchatUser');
+Route::get('user/new/chat', 'ObrolanController@newchatUser');

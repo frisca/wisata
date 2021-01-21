@@ -31,4 +31,12 @@ class Users extends Model
                   ->get();
         return $result;
     }
+
+    public function getAllUser($id)
+    {
+        $result = DB::table('users')
+                  ->where('id', '!=', $id)
+                  ->get();
+        return $result;
+    }
 }

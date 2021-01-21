@@ -207,6 +207,11 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ auth()->user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
+           <li>
+              <a href="{{ URL('user/chat') }}">
+                Obrolan
+              </a>
+            </li>
             <li>
               <a href="{{ URL('user/logout') }}">
                 Logout
@@ -300,81 +305,4 @@
     </div>
     @endforeach
   </div>
-
-  <footer class="footer-section">
-    <div class="container">
-      <div class="footer-cta pt-5 pb-5">
-        <div class="row" style="margin-top: 15px;margin-bottom: 25px; ">
-          <div class="col-xl-4 col-md-4 mb-30">
-            <div class="single-cta">
-              <i class="glyphicon glyphicon-home"></i>
-              <div class="cta-text">
-                <h4>Office</h4>
-                <span>PT. Mawardiana Berkah Sejahtera</span> <br>
-                <span>Alfa Tour and Travel</span> <br>
-                <span>Ciater Tengah RT 007/006</span> <br>
-                <span>Kel. Ciater, Kec. Serpong</span> <br>
-                <span>Tangerang Selatan</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4 mb-30">
-            <div class="single-cta">
-              <i class="glyphicon glyphicon-earphone"></i>
-              <div class="cta-text">
-                <h4>Phone</h4>
-                <span>Whatsapp : 0812 8905 9823</span><br>
-                <span>Telepon&nbsp;&nbsp;&nbsp;&nbsp; : (021) 7587 0404</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4 mb-30">
-            <div class="single-cta">
-              <i class="glyphicon glyphicon-compressed"></i>
-              <div class="cta-text">
-                <h4>Diana Fitria Upik</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-content pt-5 pb-5">
-        <div class="row">
-          <div class="col-xl-4 col-lg-4 mb-50">
-            <!-- <div class="footer-widget">
-              <div class="footer-logo">
-                <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a>
-              </div>
-              <div class="footer-text">
-                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                  elit,Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="footer-social-icon">
-                <span>Follow us</span>
-                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
-              </div>
-            </div> -->
-          </div>
-        </div>
-      </div>
-      </div>
-      <div class="copyright-area">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-12 col-lg-12 text-center text-lg-center">
-              <div class="copyright-text">
-                <p>
-                  Travel Agent Paket Wisata Indonesia dan Luar Negeri<br>Alfa Tour dan Travel
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </footer>
-</div>
-
-</body>
-</html>
+@extends('user/footer')

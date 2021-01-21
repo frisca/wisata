@@ -178,27 +178,6 @@
       font-family: serif;
       font-size: 17px;
     }
-
-    a.list-group-item {
-        height:auto;
-        min-height:220px;
-    }
-    a.list-group-item.active small {
-        color:#fff;
-    }
-    .stars {
-        margin:20px auto 1px;    
-    }
-
-    .well {
-      min-height: 0px;
-      padding: 0px;
-      margin-bottom: 20px;
-      border: none;
-      border-radius: 4px;
-      -webkit-box-shadow: none;
-      background-color: #E6E6FA;
-    }
   </style>
 </head>
 <body style="background-color: #E6E6FA;">
@@ -246,38 +225,46 @@
     </div>
   </nav>
 
-  <div class="container" style="margin-bottom: 15px;">
-    <div class="row">
-      <div class="well" style="width: 97.5%;">
-        <h2 class="text-left">Komentar</h2>
-        <form method="post" action="{{ URL('user/testimoni/store') }}">
-          {{ csrf_field() }}
-          <div class="form-group">
-            <textarea id="message" name="isi" class="form-control" rows="5" placeholder="Tulis Komentar" required></textarea>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Komentar</button>
-          </div>
-        </form>
-        <div class="list-group" style="margin-top: 50px;">
-          @foreach($data as $k)
-          <a href="#" class="list-group-item">
-            <div class="media col-md-3">
-              <figure class="pull-left">
-                <img class="media-object img-rounded img-responsive" src="{{ asset('images/user.png') }}" alt="{{ $k->nama_komentar }}" style="margin-top: 15px;">
-              </figure>
+  <div class="container">
+    <div class="row" style="margin-top: 0px; margin-bottom: 20px;">
+        <div class="col-md-12" style="margin-left: -17px;">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Chat</h4>
+                <!-- <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    <li>
+                      <a href="{{ URL('new/chat') }}">Mulai Oborolan</a>
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
+
+              <div class="card-content collapse show">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ str_replace('%20',' ',$nama) }}
+                    </div>
+                    <div class="card-body">
+                        <input type="hidden" name="nama" id="sender" value="{{ auth()->user()->name }}">
+                        <div class="col-sm-12 form-group">
+                        <div id="demos"></div>
+                        </div>
+                        <input type="hidden" name="nama_penerima" id="receiver" value="{{ str_replace('_', '%', $namas) }}">
+                        <div class="col-sm-12 form-group">
+                        <label>Pesan</label>
+                        <textarea class="form-control" style="height: 100px;" name="oborolan" id="oborolan"></textarea>
+                        </div>
+                        <div class="col-sm-3">
+                        <button class="btn btn-primary" onclick="loadDoc()">Kirim</button> <a href="{{ URL('user/chat') }}"><button class="btn btn-success">Kembali</button></a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9" style="margin-top: 15px;">
-              <h4 class="list-group-item-heading"> {{ $k->nama_komentar }} </h4>
-              <span style="font-size: 11px;"><b>{{ date('d-m-Y', strtotime($k->tgl_komentar)) }}</b></span>
-              <p class="list-group-item-text" style="margin-top: 10px;"> 
-              {{ $k->isi }}                        
-              </p>
-            </div>
-          </a>
-          @endforeach
+          </div>
         </div>
-      </div>
     </div>
-  </div>
+  <!-- </div> -->
 @extends('user/footer')
